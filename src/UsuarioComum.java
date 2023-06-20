@@ -1,4 +1,4 @@
-public class Comum extends Usuario{
+public class UsuarioComum extends Usuario{
 
     public void criaColecao(){};
     public void adicionaMusica(){};

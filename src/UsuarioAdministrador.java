@@ -1,4 +1,4 @@
-public class Administrador extends Usuario{
+public class UsuarioAdministrador extends Usuario{
 
     public void adicionaMusica(){};
     public void removeMusica(){};

@@ -7,16 +7,15 @@ import java.security.NoSuchAlgorithmException;
 
 public class Criptografia {
 
-
     private SecretKey chave;
     private Cipher cipher;
 
     Criptografia(SecretKey chave, String cipher) throws NoSuchPaddingException, NoSuchAlgorithmException {
         this.chave = chave;
         this.cipher = Cipher.getInstance(cipher);
-    }
+    };
 
-    void encriptar(String content, String file) throws InvalidKeyException, IOException {
+    public void encriptar(String content, String file) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
         cipher.init(Cipher.ENCRYPT_MODE, chave);
         byte[] iv = cipher.getIV();
 
@@ -26,15 +25,14 @@ public class Criptografia {
         ) {
             fileOut.write(iv);
             cipherOut.write(content.getBytes());
-        }
+        };
+    };
 
-    }
-
-    String desencriptar(String file) throws InvalidAlgorithmParameterException, InvalidKeyException, IOException {
+    public String desencriptar(String file) throws InvalidAlgorithmParameterException, InvalidKeyException, IOException {//Retorna a mensagem de um arquivo todo
 
         String mensagem;
 
-        try (FileInputStream fileIn = new FileInputStream(file)) {
+        try (FileInputStream fileIn = new FileInputStream(file)) {//Tenta abrir o arquivo
             byte[] fileIv = new byte[16];
             fileIn.read(fileIv);
             cipher.init(Cipher.DECRYPT_MODE, chave, new IvParameterSpec(fileIv));
@@ -43,18 +41,16 @@ public class Criptografia {
                     CipherInputStream cipherIn = new CipherInputStream(fileIn, cipher);
                     InputStreamReader inputReader = new InputStreamReader(cipherIn);
                     BufferedReader reader = new BufferedReader(inputReader)
-                ) {
+                ) {//Tenta ler o arquivo
 
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
-                }
+                };
                 mensagem = sb.toString();
-            }
-
-        }
+            };
+        };
         return mensagem;
-    }
-
-}
+    };
+};

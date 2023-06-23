@@ -9,8 +9,16 @@ public class UsuarioComum extends Usuario{
     public void adicionaMusica(){};
     public void removeMusica(){};
     public void visualizaMusica(){};
-    //public void cadastraSelf(){};//Estou fazendo o cadastrar conta abaixo
-    //public void removeSelf(){}//Estou comentando e fazendo o metodo abstrato que e diferente aos dois usuarios
+    //public void cadastraSelf(){};//Estou fazendo o criarConta
+    //public void removeSelf(){}//Estou fazendo o excluirConta
+
+    public UsuarioComum(Controle meuControle){
+        this.nome = null;
+        this.identificador = null;//Padrao sem autenticar = "null"
+        this.login = "null";
+        this.senha = null;
+        this.meuControle = meuControle;
+    };
 
     public void excluirConta(){
         this.meuControle.excluirConta(this.login);

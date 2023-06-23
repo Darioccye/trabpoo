@@ -15,6 +15,14 @@ public class UsuarioAdministrador extends Usuario{
     public void removeUsuario(){};
     public void buscaUsuario(String login){};
 
+    public UsuarioAdministrador(Controle meuControle){
+        this.nome = null;
+        this.identificador = null;//Padrao sem autenticar = "null"
+        this.login = "null";
+        this.senha = null;
+        this.meuControle = meuControle;
+    };
+
     public void excluirConta(){//return;
     };
     public void excluirConta(String email){
@@ -39,7 +47,7 @@ public class UsuarioAdministrador extends Usuario{
         }
 
         this.meuControle.criarConta(secretKey, login, id_user, senha);
-        //Inicializar a playslist ou criar aqui------------------------------------------------------Dario
+        //Inicializar a playslist ou criar aqui em memoria principal------------------------------------------------------Dario
     };
 
 }

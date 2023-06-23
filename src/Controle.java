@@ -9,8 +9,8 @@ public class Controle {
     private SecretKey chave_SecretKey;
     private Criptografia tradutor;
     
-    public Controle(){
-        
+    public Controle(Criptografia tradutor){
+        this.tradutor = tradutor;
     };
 
     public String autenticarConta(String email, String senha){
@@ -66,7 +66,7 @@ public class Controle {
         
     };
 
-    public void excluirConta(String email){//Fazer o Override no UsuarioAdministrador para que ele passe como parametro o ID do usuario a ser excluido
+    public void excluirConta(String email){
         String c = "security/c_"+ email+".txt";
         String i = "security/i_"+ email+".txt";
 

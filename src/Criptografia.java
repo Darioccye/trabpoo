@@ -15,6 +15,11 @@ public class Criptografia {
         this.chave = chave;
         this.cipher = Cipher.getInstance(cipher);//Qual tipo de criptografia vou usar, passar como parametro o modelo
     };
+    
+    Criptografia() throws NoSuchAlgorithmException, NoSuchPaddingException{
+        this.chave = KeyGenerator.getInstance("AES").generateKey();
+        this.cipher =  Cipher.getInstance("AES");
+    };
 
     public void encriptar(String content, String file) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
         cipher.init(Cipher.ENCRYPT_MODE, chave);
@@ -28,6 +33,7 @@ public class Criptografia {
             cipherOut.write(content.getBytes());
         };
     };
+
 
     public String desencriptar(String file) throws InvalidAlgorithmParameterException, InvalidKeyException, IOException {//Retorna a mensagem de um arquivo todo
 

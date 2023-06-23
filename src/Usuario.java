@@ -1,23 +1,29 @@
 import java.io.File;
 public abstract class Usuario {
-    private String nome;
-    private String identificador;
-    private String login;
-    private String senha;
+    protected String nome;
+    protected String identificador;//Padrao sem autenticar = "false"
+    protected String login;
+    protected String senha;
+    protected Controle meuControle;//Meu controle pode ser ele proprio ou sendo administrador, por isso ele procura na outra funcao
 
-    public void alterarDado(){
+    //private Persistencia manipula;//Passado no construtor ed cada usuario
 
-    };
-    public boolean excluirConta(String arquivo){
-        File file = new File(arquivo);
-        boolean result = file.delete();
-        if (result) {
-            System.out.println("Conta retirada do sistema!");
-        }
-        else {
-            System.out.println("Erro, conta nao excluida!");
+    public abstract void excluirConta();
+    public abstract void excluirConta(String login);
+
+    public void autenticar(){
+        if(identificador != "false"){
+            System.out.println("Ja esta autenticado!");
+            return;
         };
-        return result;
+        //Entradas de login e senha a fazer antes de passar null---------------------------------------------FABIO
+        this.identificador = this.meuControle.autenticarUsuario(login, senha);
+        if(identificador == "false"){
+            System.out.println("Nao autenticado!");
+            return;
+        };
+        System.out.println("Autenticado!");
     };
+    
 
 }

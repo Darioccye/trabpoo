@@ -1,3 +1,5 @@
+import javax.annotation.processing.Generated;
+
 public class UsuarioAdministrador extends Usuario{
 
     public void adicionaMusica(){};
@@ -7,5 +9,12 @@ public class UsuarioAdministrador extends Usuario{
     public void adicionaUsuario(){};
     public void removeUsuario(){};
     public void buscaUsuario(String login){};
+
+    public void excluirConta(){
+        //return;
+    };
+    public void excluirConta(String email){
+        meuControle.excluirConta(email);
+    };
 
 }

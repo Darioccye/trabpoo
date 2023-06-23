@@ -3,16 +3,17 @@ import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+//import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 
 public class Criptografia {
 
     private SecretKey chave;
-    private Cipher cipher;
+    private Cipher cipher;//"AES"
 
     Criptografia(SecretKey chave, String cipher) throws NoSuchPaddingException, NoSuchAlgorithmException {
         this.chave = chave;
-        this.cipher = Cipher.getInstance(cipher);
+        this.cipher = Cipher.getInstance(cipher);//Qual tipo de criptografia vou usar, passar como parametro o modelo
     };
 
     public void encriptar(String content, String file) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
@@ -44,9 +45,11 @@ public class Criptografia {
                 ) {//Tenta ler o arquivo
 
                 StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
+                String line = reader.readLine();
+                while (line != null) {
+                    line = reader.readLine();
                     sb.append(line);
+                    line = reader.readLine();
                 };
                 mensagem = sb.toString();
             };

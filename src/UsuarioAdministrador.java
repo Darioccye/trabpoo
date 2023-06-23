@@ -1,4 +1,9 @@
-import javax.annotation.processing.Generated;
+//import javax.annotation.processing.Generated;
+
+import java.io.File;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 public class UsuarioAdministrador extends Usuario{
 
@@ -10,11 +15,31 @@ public class UsuarioAdministrador extends Usuario{
     public void removeUsuario(){};
     public void buscaUsuario(String login){};
 
-    public void excluirConta(){
-        //return;
+    public void excluirConta(){//return;
     };
     public void excluirConta(String email){
-        meuControle.excluirConta(email);
+        this.meuControle.excluirConta(email);
+    };
+
+    public void criarConta(String nome, String login, String senha){
+        String caminho = "security/c_"+login+".txt";
+        File file = new File(caminho);
+        if(file.exists()){
+            System.out.println("Usuario ja registrado!");
+            return;
+        };
+        String id_user = this.meuControle.gerarID();
+
+        SecretKey secretKey = null;
+
+        try {
+            secretKey = KeyGenerator.getInstance("AES").generateKey();
+        } catch (Exception e) {
+            // Tratar erros
+        }
+
+        this.meuControle.criarConta(secretKey, login, id_user, senha);
+        //Inicializar a playslist ou criar aqui------------------------------------------------------Dario
     };
 
 }

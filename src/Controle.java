@@ -1,9 +1,10 @@
 import java.io.*;
 import java.util.Base64;
-//import java.util.Scanner;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.util.Random;
 public class Controle {
     private SecretKey chave_SecretKey;
     private Criptografia tradutor;
@@ -12,13 +13,7 @@ public class Controle {
         
     };
 
-    /*public static Scanner teclado(){
-        Scanner teclado = new Scanner(System.in);
-        return teclado;
-    };*/
-
-
-    public String autenticarUsuario(String email, String senha){
+    public String autenticarConta(String email, String senha){
         String caminho = "security/c_"+email+".txt";//Chave criptografada
 
         String chave_acesso = "a";
@@ -40,8 +35,8 @@ public class Controle {
         //Iniciado o nosso tradutor que vai desinciptar os nossos logins
         //Toda vez que chamar este metodo, ele devera sumir com tradutor antigo(Com nova chave), e instanciar um novo para uso
         try{
-            Criptografia traducao = new Criptografia(chave_SecretKey, "AES");
-            tradutor = traducao;
+            Criptografia traducao = new Criptografia(this.chave_SecretKey, "AES");
+            this.tradutor = traducao;
         }catch(Exception e){
             //Tratamento de erros do codigo.
         };
@@ -67,14 +62,9 @@ public class Controle {
         }catch(Exception e){
             //Tramento de erros do codigo.
         };
-
-        return "false";
+        return "null";
         
     };
-
-
-
-
 
     public void excluirConta(String email){//Fazer o Override no UsuarioAdministrador para que ele passe como parametro o ID do usuario a ser excluido
         String c = "security/c_"+ email+".txt";
@@ -83,6 +73,7 @@ public class Controle {
 
         String chave_acesso = "null";
         String myId = "null";
+
         try{
             FileReader bit_bit = new FileReader(c);
             BufferedReader buffer = new BufferedReader(bit_bit);
@@ -105,15 +96,58 @@ public class Controle {
             //Tratar erros
         };
         File file = new File(c);//Exclusao da conta do usuario
-        boolean result = file.delete();
+        file.delete();
 
         file = new File(i);//Exclusao da conta do usuario
-        result = file.delete();
+        file.delete();
 
         file = new File(file, "security/"+myId+".txt");
-        result = file.delete();
+        file.delete();
+    };
+
+    public void criarConta(SecretKey chave, String login, String id, String senha){
+        Criptografia temp = null;
+        try {
+            temp = new Criptografia(chave, "AES");
+        } catch (Exception e) {
+            //Erros gerados
+        }
+        String c = "security/c_"+login+".txt";
+        String i = "security/i_"+login+".txt";
+        String id_path = "security/"+id+".txt";
+
+        String chave_string = Base64.getEncoder().encodeToString(chave.getEncoded());
+        Teclado.escritaArquivo(c, chave_string);
+
+        try{//Encriptar ID
+            temp.encriptar(id, i);//Ja escreve
+        }catch(Exception e){
+        };
+
+        try{//Encriptar Senha
+            temp.encriptar(senha, id_path);//Ja escreve
+        }catch(Exception e){
+        };
+        
+    };
+
+    public String gerarID(){
+        Random aleatorio = new Random();
+        File file;
+        String caminho = "security/";
+
+        while(true){
+            int numero = aleatorio.nextInt();
+            if(numero < 0) numero *= -1;
+            if(numero == 0) continue;
+
+            numero = numero % 1000;
+            file = new File(caminho+numero+".txt");
+            if(!file.exists()) return Integer.toString(numero);//Retornando o id criado em string
+        }
     };
 }
+
 
 
 /*

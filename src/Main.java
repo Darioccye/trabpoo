@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException {
         Criptografia inicializa = new Criptografia();//Preciso dele para comecar a ler e usar o sistema
 
-        Controle controle = new Controle(inicializa);//Controle usado pelo usuario comum ou administrador
+        Controle controle = new Controle(inicializa);//Controle usado pelo usuario comum ou usuario administrador
 
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);

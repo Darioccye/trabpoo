@@ -14,8 +14,8 @@ public class UsuarioComum extends Usuario{
 
     public UsuarioComum(Controle meuControle){
         this.nome = null;
-        this.identificador = null;//Padrao sem autenticar = "null"
-        this.login = "null";
+        this.identificador = "null";//Padrao sem autenticar = "null"
+        this.login = null;
         this.senha = null;
         this.meuControle = meuControle;
     };

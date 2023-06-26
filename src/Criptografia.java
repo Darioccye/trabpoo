@@ -18,7 +18,7 @@ public class Criptografia {
     
     Criptografia() throws NoSuchAlgorithmException, NoSuchPaddingException{
         this.chave = KeyGenerator.getInstance("AES").generateKey();
-        this.cipher =  Cipher.getInstance("AES");
+        this.cipher =  Cipher.getInstance("AES/CBC/PKCS5Padding");
     };
 
     public void encriptar(String content, String file) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
@@ -31,6 +31,8 @@ public class Criptografia {
         ) {
             fileOut.write(iv);
             cipherOut.write(content.getBytes());
+            fileOut.close();
+            cipherOut.close();
         };
     };
 

@@ -1,9 +1,16 @@
 //import javax.annotation.processing.Generated;
 
 import java.io.File;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class UsuarioAdministrador extends Usuario{
 
@@ -11,9 +18,20 @@ public class UsuarioAdministrador extends Usuario{
     public void removeMusica(){};
     public void buscaMusica(String titulo){};
     public void atualizaMusica(){};
-    public void adicionaUsuario(){};
-    public void removeUsuario(){};
-    public void buscaUsuario(String login){};
+
+    public void adicionaUsuario(){};//Ja feito abaixo
+    public void removeUsuario(){};//Ja feito abaixo
+
+    public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException{
+        String path = "security/c_" + login + ".txt";
+        String chave_texto = Teclado.leituraArquivo(path);
+        byte[] decodedKey = Base64.getDecoder().decode(chave_texto);
+        SecretKey chave = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+        Criptografia desc = new Criptografia(chave, "AES");
+        path = "security/i_"+login+".txt";
+        String id = desc.desencriptar(path);
+        return id;//Retornando o ID de usuario na busca
+    };
 
     public UsuarioAdministrador(Controle meuControle){
         this.nome = null;

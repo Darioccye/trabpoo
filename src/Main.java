@@ -12,5 +12,8 @@ public class Main {
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);
         //Quando quiser autenticar e receber o usuario, instanciar o objeto respectivo (comum ou administrador), e fazer suas manipulacoes
+
+
+        
     }
 }

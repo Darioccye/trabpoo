@@ -9,8 +9,9 @@ public class UsuarioComum extends Usuario{
     public void adicionaMusica(){};
     public void removeMusica(){};
     public void visualizaMusica(){};
-    //public void cadastraSelf(){};//Estou fazendo o criarConta
-    //public void removeSelf(){}//Estou fazendo o excluirConta
+    
+    public void cadastraSelf(){};//Ja feito abaixo
+    public void removeSelf(){}//Ja feito abaixo
 
     public UsuarioComum(Controle meuControle){
         this.nome = null;

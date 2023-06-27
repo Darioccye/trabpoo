@@ -35,7 +35,7 @@ public class Controle {
         //Iniciado o nosso tradutor que vai desinciptar os nossos logins
         //Toda vez que chamar este metodo, ele devera sumir com tradutor antigo(Com nova chave), e instanciar um novo para uso
         try{
-            Criptografia traducao = new Criptografia(this.chave_SecretKey, "AES");
+            Criptografia traducao = new Criptografia(this.chave_SecretKey, "AES/CBC/PKCS5Padding");
             this.tradutor = traducao;
         }catch(Exception e){
             //Tratamento de erros do codigo.
@@ -43,19 +43,17 @@ public class Controle {
         
 
         String id_user = "null";
-        caminho = "security/i_"+email+".txt";
 
         try{
-            id_user = tradutor.desencriptar(caminho);
+            id_user = tradutor.desencriptar(email, 1);
         }catch(Exception e){
             //Tratamento de erros do codigo.
         };
 
         String senhaComp = "null";
-        caminho = "security/"+id_user+".txt";
 
         try{
-            senhaComp = tradutor.desencriptar(caminho);
+            senhaComp = tradutor.desencriptar(email, 2);
             if(senhaComp.compareTo(senha) == 0){
                 return id_user;//Retornando o id do usuario
             };
@@ -70,28 +68,16 @@ public class Controle {
         String c = "security/c_"+ email+".txt";
         String i = "security/i_"+ email+".txt";
 
-
-        String chave_acesso = "null";
+        String chave_acesso = Teclado.leituraArquivo(c);
         String myId = "null";
-
-        try{
-            FileReader bit_bit = new FileReader(c);
-            BufferedReader buffer = new BufferedReader(bit_bit);
-            String temporaria = buffer.readLine();
-            buffer.close();
-
-            chave_acesso = temporaria;
-        }catch(IOException exception){
-            System.out.println("Erro ao ecluir o arquivo");
-        };
 
         //Codificando nossa chave para ler os seguintes acessos no tradutor
         byte[] decodedKey = Base64.getDecoder().decode(chave_acesso);
         SecretKey chave_temp  = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
         try{
-            Criptografia temp = new Criptografia(chave_temp, "AES");
-            myId = temp.desencriptar(i);
+            Criptografia temp = new Criptografia(chave_temp, "AES/CBC/PKCS5Padding");
+            myId = temp.desencriptar(email, 1);
         }catch(Exception e){
             //Tratar erros
         };
@@ -101,33 +87,23 @@ public class Controle {
         file = new File(i);//Exclusao da conta do usuario
         file.delete();
 
-        file = new File(file, "security/"+myId+".txt");
+        file = new File(file, "security/"+myId+".txt");//Exclusao do ID do usuario
         file.delete();
     };
 
     public void criarConta(SecretKey chave, String login, String id, String senha){
         Criptografia temp = null;
         try {
-            temp = new Criptografia(chave, "AES");
+            temp = new Criptografia(chave, "AES/CBC/PKCS5Padding");
         } catch (Exception e) {
             //Erros gerados
         }
-        String c = "security/c_"+login+".txt";
-        String i = "security/i_"+login+".txt";
-        String id_path = "security/"+id+".txt";
-
-        String chave_string = Base64.getEncoder().encodeToString(chave.getEncoded());
-        Teclado.escritaArquivo(c, chave_string);
-
+        
         try{//Encriptar ID
-            temp.encriptar(id, i);//Ja escreve
+            temp.encriptar(senha,id, login);//Ja escreve
         }catch(Exception e){
         };
-
-        try{//Encriptar Senha
-            temp.encriptar(senha, id_path);//Ja escreve
-        }catch(Exception e){
-        };
+        
         
     };
 

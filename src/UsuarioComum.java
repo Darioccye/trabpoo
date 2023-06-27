@@ -25,8 +25,8 @@ public class UsuarioComum extends Usuario{
         this.meuControle.excluirConta(this.login);
 
         this.nome = null;
-        this.identificador = null;
-        this.login = "null";
+        this.identificador = "null";
+        this.login = null;
         this.senha = null;
         this.meuControle = null;
     };
@@ -34,7 +34,7 @@ public class UsuarioComum extends Usuario{
     };
 
     public void criarConta(String nome, String login, String senha){
-        if(this.login != "null"){
+        if(this.identificador != "null"){
             System.out.println("Ja esta registrado no sistema");
             return;
         };

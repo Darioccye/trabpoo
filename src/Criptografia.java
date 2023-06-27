@@ -1,10 +1,13 @@
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 //import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class Criptografia {
 
@@ -21,47 +24,77 @@ public class Criptografia {
         this.cipher =  Cipher.getInstance("AES/CBC/PKCS5Padding");
     };
 
-    public void encriptar(String content, String file) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
+    public void encriptar(String senha, String id, String login) throws InvalidKeyException, IOException{//Aqui ele encripta somente uma unica string em um unico arquivo
         cipher.init(Cipher.ENCRYPT_MODE, chave);
         byte[] iv = cipher.getIV();
 
-        try (
-                FileOutputStream fileOut = new FileOutputStream(file);
-                CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)
-        ) {
+        try (FileOutputStream fileOut = new FileOutputStream("security/"+id+".txt");//Escrita da senha
+        CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)) {
             fileOut.write(iv);
-            cipherOut.write(content.getBytes());
-            fileOut.close();
-            cipherOut.close();
-        };
+            cipherOut.write(senha.getBytes());
+        }
+
+        String encodedKey = Base64.getEncoder().encodeToString(chave.getEncoded());
+        Teclado.escritaArquivo("security/c_"+login+".txt", encodedKey);//Escrita da chave
+
+        try (FileOutputStream fileOut = new FileOutputStream("security/i_"+login+".txt");//Escrita do id
+        CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)) {
+            fileOut.write(iv);
+            cipherOut.write(id.getBytes());
+        }
     };
 
+    public String desencriptar(String email, int escolha) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, IOException, InvalidAlgorithmParameterException {
+        String content;
+        String encodedKey = Teclado.leituraArquivo("security/c_"+email+".txt");//Chave
+        byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+        SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
-    public String desencriptar(String file) throws InvalidAlgorithmParameterException, InvalidKeyException, IOException {//Retorna a mensagem de um arquivo todo
-
-        String mensagem;
-
-        try (FileInputStream fileIn = new FileInputStream(file)) {//Tenta abrir o arquivo
+        try (FileInputStream fileIn = new FileInputStream("security/i_"+ email +".txt")) {//Descriptografou a chave
             byte[] fileIv = new byte[16];
             fileIn.read(fileIv);
-            cipher.init(Cipher.DECRYPT_MODE, chave, new IvParameterSpec(fileIv));
+            cipher.init(Cipher.DECRYPT_MODE, originalKey, new IvParameterSpec(fileIv));
 
             try (
                     CipherInputStream cipherIn = new CipherInputStream(fileIn, cipher);
                     InputStreamReader inputReader = new InputStreamReader(cipherIn);
                     BufferedReader reader = new BufferedReader(inputReader)
-                ) {//Tenta ler o arquivo
+                ) {
 
                 StringBuilder sb = new StringBuilder();
-                String line = reader.readLine();
-                while (line != null) {
-                    line = reader.readLine();
+                String line;
+                while ((line = reader.readLine()) != null) {
                     sb.append(line);
-                    line = reader.readLine();
-                };
-                mensagem = sb.toString();
-            };
-        };
-        return mensagem;
-    };
+                }
+                content = sb.toString();
+            }
+
+        }
+        if(escolha == 1) return content;
+
+        try (FileInputStream fileIn = new FileInputStream("security/"+ content +".txt")) {//Descriptografou o ID
+            content = null;
+            byte[] fileIv = new byte[16];
+            fileIn.read(fileIv);
+            cipher.init(Cipher.DECRYPT_MODE, originalKey, new IvParameterSpec(fileIv));
+
+            try (
+                    CipherInputStream cipherIn = new CipherInputStream(fileIn, cipher);
+                    InputStreamReader inputReader = new InputStreamReader(cipherIn);
+                    BufferedReader reader = new BufferedReader(inputReader)
+                ) {
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                content = sb.toString();
+            }
+
+        }
+
+        return content;
+    }
+
 };

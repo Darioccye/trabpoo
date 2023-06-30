@@ -68,7 +68,7 @@ public class Controle {
         String c = "security/c_"+ email+".txt";
         String i = "security/i_"+ email+".txt";
 
-        String chave_acesso = Teclado.leituraArquivo(c);
+        String chave_acesso = InputOutput.leituraCriptografia(c);
         String myId = "null";
 
         //Codificando nossa chave para ler os seguintes acessos no tradutor

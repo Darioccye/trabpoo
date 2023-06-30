@@ -4,14 +4,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-public class Teclado {
+public class InputOutput {
 
     public static String leituraConsole(){
         Scanner teclado = new Scanner(System.in);
         return teclado.nextLine();
     };
 
-    public static String leituraArquivo(String path){
+    public static String leituraCriptografia(String path){
         FileReader fr;
         BufferedReader br;
         String line = "null";
@@ -29,7 +29,7 @@ public class Teclado {
         return line;
     };
 
-    public static void escritaArquivo(String path, String mensagem){
+    public static void escritaCriptografia(String path, String mensagem){
         FileWriter fw;
         PrintWriter pw;
         try {

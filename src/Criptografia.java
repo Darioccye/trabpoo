@@ -35,7 +35,7 @@ public class Criptografia {
         }
 
         String encodedKey = Base64.getEncoder().encodeToString(chave.getEncoded());
-        Teclado.escritaArquivo("security/c_"+login+".txt", encodedKey);//Escrita da chave
+        InputOutput.escritaCriptografia("security/c_"+login+".txt", encodedKey);//Escrita da chave
 
         try (FileOutputStream fileOut = new FileOutputStream("security/i_"+login+".txt");//Escrita do id
         CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)) {
@@ -46,7 +46,7 @@ public class Criptografia {
 
     public String desencriptar(String email, int escolha) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, IOException, InvalidAlgorithmParameterException {
         String content;
-        String encodedKey = Teclado.leituraArquivo("security/c_"+email+".txt");//Chave
+        String encodedKey = InputOutput.leituraCriptografia("security/c_"+email+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 

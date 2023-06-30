@@ -26,7 +26,7 @@ public class UsuarioAdministrador extends Usuario{
 
     public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
         String content;
-        String encodedKey = Teclado.leituraArquivo("security/c_"+login+".txt");//Chave
+        String encodedKey = InputOutput.leituraCriptografia("security/c_"+login+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         Criptografia desc = new Criptografia(originalKey, "AES/CBC/PKCS5Padding");
@@ -34,7 +34,7 @@ public class UsuarioAdministrador extends Usuario{
 
         
         /*String path = "security/c_" + login + ".txt";
-        String chave_texto = Teclado.leituraArquivo(path);
+        String chave_texto = Teclado.leituraCriptografia(path);
         byte[] decodedKey = Base64.getDecoder().decode(chave_texto);
         SecretKey chave = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         Criptografia desc = new Criptografia(chave, "AES/CBC/PKCS5Padding");

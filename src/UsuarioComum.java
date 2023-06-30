@@ -28,7 +28,7 @@ public class UsuarioComum extends Usuario{
         this.identificador = "null";
         this.login = null;
         this.senha = null;
-        this.meuControle = null;
+        //this.meuControle = null;
     };
     public void excluirConta(String email){//return;
     };
@@ -47,6 +47,7 @@ public class UsuarioComum extends Usuario{
         this.login = login;
         this.nome = nome;
         this.identificador = this.meuControle.gerarID();
+        this.senha = senha;
 
         SecretKey secretKey = null;
 

@@ -25,7 +25,7 @@ public class UsuarioAdministrador extends Usuario{
     public void removeUsuario(){};//Ja feito abaixo
 
     public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
-        String content;
+        //String content;
         String encodedKey = InputOutput.leituraCriptografia("security/c_"+login+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");

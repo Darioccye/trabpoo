@@ -3,8 +3,10 @@ import java.util.*;
 public class MusicaInstrumental extends Musica {
     public String nomeArqPartitura;
 
-    public MusicaInstrumental(String titulo, Duracao duracao, String autores, Date data, String genero, String nomeArqPartitura) {
-        super(titulo, duracao, autores, data, genero);
+    public MusicaInstrumental() {
+        super();
+        System.out.println("Qual o nome do arquivo da partitura? ");
+        String nomeArqPartitura = InputOutput.leituraConsoleString();
         this.nomeArqPartitura = nomeArqPartitura;
     }
 

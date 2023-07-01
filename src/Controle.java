@@ -5,6 +5,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.Random;
+
+// Completa //
+
 public class Controle {
     private SecretKey chave_SecretKey;
     private Criptografia tradutor;

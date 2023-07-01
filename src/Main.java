@@ -17,6 +17,7 @@ public class Main {
 
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);
+        admin.adicionaMusica();
 
         /*-+-+-+-+-+-+-+-+-+Login e senha da conta principal do sistema+-+-+-+-+-+-+-+-+-
          * login: admin

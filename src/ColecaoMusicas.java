@@ -2,7 +2,7 @@ import java.util.*;
 
 public class ColecaoMusicas {
     private int numMusicas;
-    private ArrayList<Musica> colecao;
+    private Collection<Musica> colecao;
 
     public ColecaoMusicas(){
         numMusicas = 0;
@@ -17,11 +17,11 @@ public class ColecaoMusicas {
         this.numMusicas = numMusicas;
     }
 
-    public ArrayList<Musica> getColecao() {
+    public Collection<Musica> getColecao() {
         return colecao;
     }
 
-    public void setColecao(ArrayList<Musica> colecao) {
+    public void setColecao(Collection<Musica> colecao) {
         this.colecao = colecao;
     }
 

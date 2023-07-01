@@ -1,5 +1,7 @@
 //import javax.annotation.processing.Generated;
 
+import java.util.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -14,12 +16,48 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class UsuarioAdministrador extends Usuario{
 
-    public void adicionaMusica(){};
-    public void removeMusica(){};
-    public void buscaMusica(String titulo){};
-    public void atualizaMusica(){};
+
+public class UsuarioAdministrador extends Usuario{
+// this.musicas
+    public void atualizaMusica(Musica musica){
+        for(Musica m:this.musicas){
+            if(m.getId() == musica.getId()){
+                this.musicas.remove(m);
+                this.musicas.add(musica);
+            }
+        }
+    };
+
+    public Musica criaMusica(){
+        System.out.println("Música Instrumental (1) ou Canção (2)?");
+        int tipoMusica = InputOutput.leituraConsoleint();
+        Musica musica = null;
+        if(tipoMusica == 1){
+            musica = new MusicaInstrumental();
+        }
+        else if(tipoMusica == 2){
+            musica = new MusicaCancao();
+        }
+        else{
+            System.out.println("Opção não suportada.");
+        }
+        return musica;
+    }
+
+    public void adicionaMusica(){
+        Musica novaMusica = criaMusica();
+        System.out.println(novaMusica.toString());
+/*        if(this.getMusicas().contains(novaMusica)){
+            System.out.println("Música já cadastrada!");
+        }*/
+/*        else{
+            this.getMusicas().add(novaMusica);
+        }*/
+
+        // Fazer persistencia
+        InputOutput.escritaBinarioMusica("src/PlaylistPrincipal/null.txt", novaMusica);
+    }
 
     public void adicionaUsuario(){};//Ja feito abaixo
     public void removeUsuario(){};//Ja feito abaixo
@@ -49,6 +87,7 @@ public class UsuarioAdministrador extends Usuario{
         this.login = null;
         this.senha = null;
         this.meuControle = meuControle;
+     //   this.musicas =
     };
 
     public void excluirConta(){//return;

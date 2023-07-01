@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.logging.*;
 
-public class Letra {
+public class Letra___NaoUtilizada {
     private String nomeArqLetra;
     private String texto;
 
-    public Letra(String nomeArqLetra) {
+    public Letra___NaoUtilizada(String nomeArqLetra) {
         FileReader fr = null;
         BufferedReader br = null;
 
@@ -26,7 +26,7 @@ public class Letra {
             }while (!eof);
 
         } catch (IOException ex) {
-            Logger.getLogger(Letra.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Letra___NaoUtilizada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

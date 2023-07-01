@@ -1,38 +1,43 @@
+import java.io.Serializable;
 import java.util.*;
 
-
-public abstract class Musica {
-    private static int numMusicas = 0;
-    private int id;
+public abstract class Musica implements Serializable {
     private String titulo;
-    private Duracao duracao;
     private String autores;
-    private Date data;
+    private String data;
     private String genero;
+    private Integer id;
+    private Integer duracaomin;
+    private Integer duracaoseg;
 
-    public Musica(String titulo, Duracao duracao, String autores, Date data, String genero) {
+    public Musica() {
+        System.out.println("Título da Música: ");
+        String titulo = InputOutput.leituraConsoleString();
+        System.out.println("Duração da Música, em segundos: ");
+        int duracao = InputOutput.leituraConsoleint();
+        int duracaomin = duracao/60;
+        int duracaoseg = duracao - duracaomin*60;
+        System.out.println("Autores da Música: ");
+        String autores = InputOutput.leituraConsoleString();
+        System.out.println("Data de lançamento (dd/mm/aa): ");
+        String data = InputOutput.leituraConsoleString();
+        System.out.println("Gênero da Música: ");
+        String genero = InputOutput.leituraConsoleString();
         this.titulo = titulo;
-        this.duracao = duracao;
+        this.duracaomin = duracaomin;
+        this.duracaoseg = duracaoseg;
         this.autores = autores;
         this.data = data;
         this.genero = genero;
-        numMusicas++;
-        this.id = numMusicas;
+        this.id = 1;
     }
 
-    public static int getNumMusicas() {
-        return numMusicas;
-    }
 
-    public static void setNumMusicas(int numMusicas) {
-        Musica.numMusicas = numMusicas;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,12 +49,20 @@ public abstract class Musica {
         this.titulo = titulo;
     }
 
-    public Duracao getDuracao() {
-        return duracao;
+    public Integer getDuracaomin() {
+        return duracaomin;
     }
 
-    public void setDuracao(Duracao duracao) {
-        this.duracao = duracao;
+    public void setDuracaomin(Integer duracaomin) {
+        this.duracaomin = duracaomin;
+    }
+
+    public Integer getDuracaoseg() {
+        return duracaoseg;
+    }
+
+    public void setDuracaoseg(Integer duracaoseg) {
+        this.duracaoseg = duracaoseg;
     }
 
     public String getAutores() {
@@ -60,11 +73,11 @@ public abstract class Musica {
         this.autores = autores;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -78,6 +91,6 @@ public abstract class Musica {
 
     @Override
     public String toString() {
-        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", autores=" + autores + ", data=" + data + ", genero=" + genero + '}';
+        return "Título: " + titulo + ", Duração: " + duracaomin + " minutos e " + duracaoseg + "segundos" + ", Autores: " + autores + ", Data de Lançamento: " + data + ", Gênero: " + genero;
     }
 }

@@ -1,8 +1,12 @@
-class Duracao {
+import java.io.Serializable;
+
+//Classe não utilizada //
+
+class Duracao___NaoUtilizada implements Serializable {
     private int min;
     private int segundos;
 
-    public Duracao(int min, int segundos) {
+    public Duracao___NaoUtilizada(int min, int segundos) {
         this.min = min;
         this.segundos = segundos;
     }
@@ -25,7 +29,7 @@ class Duracao {
 
     @Override
     public String toString() {
-        return "Duracao{" + "min=" + min + ", segundos=" + segundos + '}';
+        return min + " Minutos " + "e " + segundos + " segundos";
     }
 
 

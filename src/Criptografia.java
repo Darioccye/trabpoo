@@ -9,6 +9,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+// Completa //
+
 public class Criptografia {
 
     private SecretKey chave;

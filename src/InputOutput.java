@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,10 @@ public class InputOutput {
 
     public static boolean escritaBinarioString(String arquivo, String str){
           try{
-            FileOutputStream outputStream = new FileOutputStream(arquivo, true);
+              str = str + "\n";
+            DataOutputStream outputStream = new DataOutputStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(arquivo, true)));
             byte[] strToBytes = str.getBytes();
             outputStream.write(strToBytes);
             System.out.println("Escrita com sucesso");
@@ -31,10 +36,12 @@ public class InputOutput {
     }
 
     public static boolean escritaBinarioMusica(String arquivo, Musica musica){
+        String tag = musica.getTag().toString();
         String id = musica.getId().toString();
         String dmin = musica.getDuracaomin().toString();
         String dseg = musica.getDuracaoseg().toString();
         escritaBinarioString(arquivo, id);
+        escritaBinarioString(arquivo, tag);
         escritaBinarioString(arquivo, dmin);
         escritaBinarioString(arquivo, dseg);
         escritaBinarioString(arquivo, musica.getTitulo());
@@ -45,16 +52,47 @@ public class InputOutput {
     }
 
 
-
-    public static <T> void escritaArquivoBinario(String arquivo, T objeto){ // aparentemente não funciona
-        try(
-                FileOutputStream fos = new FileOutputStream("arquivo");){
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(objeto);
-                oos.close();
-        } catch(IOException ex){
-            System.out.println(ex.toString());
+    public static Collection<Musica> leituraBinarioColecao(String arquivo){
+        try {
+            RandomAccessFile raf = new RandomAccessFile(arquivo, "r");
+            String i = "a";
+            Musica musica = null;
+            Collection<Musica> colecao = new ArrayList<Musica>();
+            while((i = raf.readLine()) != null){
+                int tag = Integer.parseInt(i);
+                i = raf.readLine();
+                int id = Integer.parseInt(i);
+                i = raf.readLine();
+                int dmin = Integer.parseInt(i);
+                i = raf.readLine();
+                int dseg = Integer.parseInt(i);
+                i = raf.readLine();
+                String titulo = i;
+                i = raf.readLine();
+                String autores = i;
+                i = raf.readLine();
+                String data = i;
+                i = raf.readLine();
+                String genero = i;
+                if(tag == 1){
+                    musica = new MusicaInstrumental(tag, id, dmin, dseg, titulo, autores, data, genero, "src/instrumental/null.txt");
+                }
+                else if(tag == 2){
+                    musica = new MusicaCancao(tag, id, dmin, dseg, titulo, autores, data, genero, "src/cancao/null.txt");
+                }
+                colecao.add(musica);
+            }
+            raf.close();
+            return colecao;
+        } catch(IOException ie){
+            System.out.println(ie.toString());
+            System.out.println("Não foi possível encontrar o arquivo ou estava vazio.");
         }
+        return null;
+    }
+
+    public static void escritaArquivoTexto(String nomeArq, String str){
+
     }
 
     public static String leituraArquivoTexto(String nomeArq){
@@ -94,7 +132,7 @@ public class InputOutput {
             line = br.readLine();
             fr.close();
             br.close();
-            
+
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
@@ -107,14 +145,14 @@ public class InputOutput {
         try {
             fw = new FileWriter(path);
             pw = new PrintWriter(fw);
-            
+
             pw.println(mensagem);//Escrita no arquivo
-            
+
             fw.close();
             pw.close();
-            
+
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
-        } 
+        }
     };
 }

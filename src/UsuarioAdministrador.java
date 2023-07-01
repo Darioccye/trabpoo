@@ -34,10 +34,10 @@ public class UsuarioAdministrador extends Usuario{
         int tipoMusica = InputOutput.leituraConsoleint();
         Musica musica = null;
         if(tipoMusica == 1){
-            musica = new MusicaInstrumental();
+            musica = new MusicaInstrumental(1);
         }
         else if(tipoMusica == 2){
-            musica = new MusicaCancao();
+            musica = new MusicaCancao(2);
         }
         else{
             System.out.println("Opção não suportada.");
@@ -50,12 +50,15 @@ public class UsuarioAdministrador extends Usuario{
         System.out.println(novaMusica.toString());
 /*        if(this.getMusicas().contains(novaMusica)){
             System.out.println("Música já cadastrada!");
-        }*/
-/*        else{
+        }
+        else{
             this.getMusicas().add(novaMusica);
         }*/
 
         // Fazer persistencia
+        if(novaMusica.getId() == 1){
+
+        }
         InputOutput.escritaBinarioMusica("src/PlaylistPrincipal/null.txt", novaMusica);
     }
 
@@ -87,7 +90,7 @@ public class UsuarioAdministrador extends Usuario{
         this.login = null;
         this.senha = null;
         this.meuControle = meuControle;
-     //   this.musicas =
+      //  this.musicas = InputOutput.leituraBinarioColecao("src/playlistPrincipal/null.txt");
     };
 
     public void excluirConta(){//return;

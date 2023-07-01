@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -17,8 +18,10 @@ public class Main {
 
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);
-        admin.adicionaMusica();
-
+      //  admin.adicionaMusica();
+        ColecaoMusicas colecao = new ColecaoMusicas();
+        colecao.setColecao(InputOutput.leituraBinarioColecao("src/playlistPrincipal/null.txt"));
+        System.out.println(colecao);
         /*-+-+-+-+-+-+-+-+-+Login e senha da conta principal do sistema+-+-+-+-+-+-+-+-+-
          * login: admin
          * senha: fromIncludeImport01

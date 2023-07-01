@@ -2,36 +2,54 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class Musica implements Serializable {
-    private String titulo;
-    private String autores;
-    private String data;
-    private String genero;
-    private Integer id;
-    private Integer duracaomin;
-    private Integer duracaoseg;
+    protected Integer tag;
+    protected Integer id;
+    protected Integer duracaomin;
+    protected Integer duracaoseg;
+    protected String titulo;
+    protected String autores;
+    protected String data;
+    protected String genero;
 
-    public Musica() {
-        System.out.println("Título da Música: ");
-        String titulo = InputOutput.leituraConsoleString();
-        System.out.println("Duração da Música, em segundos: ");
-        int duracao = InputOutput.leituraConsoleint();
-        int duracaomin = duracao/60;
-        int duracaoseg = duracao - duracaomin*60;
-        System.out.println("Autores da Música: ");
-        String autores = InputOutput.leituraConsoleString();
-        System.out.println("Data de lançamento (dd/mm/aa): ");
-        String data = InputOutput.leituraConsoleString();
-        System.out.println("Gênero da Música: ");
-        String genero = InputOutput.leituraConsoleString();
+    public Musica(){
+
+    }
+
+    public Musica(int Criar) {
+        if(Criar == 1){
+            System.out.println("entrou no construtor");
+            System.out.println("Título da Música: ");
+            String titulo = InputOutput.leituraConsoleString();
+            System.out.println("Duração da Música, em segundos: ");
+            int duracao = InputOutput.leituraConsoleint();
+            int duracaomin = duracao/60;
+            int duracaoseg = duracao - duracaomin*60;
+            System.out.println("Autores da Música: ");
+            String autores = InputOutput.leituraConsoleString();
+            System.out.println("Data de lançamento (dd/mm/aa): ");
+            String data = InputOutput.leituraConsoleString();
+            System.out.println("Gênero da Música: ");
+            String genero = InputOutput.leituraConsoleString();
+            this.titulo = titulo;
+            this.duracaomin = duracaomin;
+            this.duracaoseg = duracaoseg;
+            this.autores = autores;
+            this.data = data;
+            this.genero = genero;
+            this.id = 1;
+        }
+    }
+
+    public Musica(Integer tag, Integer id, Integer duracaomin, Integer duracaoseg, String titulo, String autores, String data, String genero){
+        this.tag = tag;
         this.titulo = titulo;
         this.duracaomin = duracaomin;
         this.duracaoseg = duracaoseg;
         this.autores = autores;
         this.data = data;
         this.genero = genero;
-        this.id = 1;
+        this.id = id;
     }
-
 
     public Integer getId() {
         return id;
@@ -39,6 +57,14 @@ public abstract class Musica implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTag() {
+        return tag;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
     public String getTitulo() {
@@ -91,6 +117,6 @@ public abstract class Musica implements Serializable {
 
     @Override
     public String toString() {
-        return "Título: " + titulo + ", Duração: " + duracaomin + " minutos e " + duracaoseg + "segundos" + ", Autores: " + autores + ", Data de Lançamento: " + data + ", Gênero: " + genero;
+        return "ID: " + id + ", Título: " + titulo + ", Duração: " + duracaomin + " minutos e " + duracaoseg + " segundos" + ", Autores: " + autores + ", Data de Lançamento: " + data + ", Gênero: " + genero;
     }
 }

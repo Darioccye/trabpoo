@@ -1,11 +1,9 @@
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
 import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-//import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 

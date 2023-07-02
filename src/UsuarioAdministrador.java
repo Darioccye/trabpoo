@@ -75,27 +75,17 @@ public class UsuarioAdministrador extends Usuario{
     public void removeUsuario(){};//Ja feito abaixo
 
     public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
-        //String content;
         String encodedKey = InputOutput.leituraCriptografia("src/security/c_"+login+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         Criptografia desc = new Criptografia(originalKey, "AES/CBC/PKCS5Padding");
         return desc.desencriptar(encodedKey, 1);//Retorna o ID do usuario
 
-        
-        /*String path = "security/c_" + login + ".txt";
-        String chave_texto = Teclado.leituraCriptografia(path);
-        byte[] decodedKey = Base64.getDecoder().decode(chave_texto);
-        SecretKey chave = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-        Criptografia desc = new Criptografia(chave, "AES/CBC/PKCS5Padding");
-        path = "security/i_"+login+".txt";
-        String id = desc.desencriptar(path);
-        return id;//Retornando o ID de usuario na busca*/
     };
 
-    public UsuarioAdministrador(Controle meuControle){/////////////////////////////////////////////////////////////////////////////////Colocar aqui a colecao dele
+    public UsuarioAdministrador(Controle meuControle){
         this.nome = null;
-        this.identificador = "null";//Padrao sem autenticar = "null"
+        this.identificador = "null";
         this.login = null;
         this.senha = null;
         this.meuControle = meuControle;
@@ -127,7 +117,12 @@ public class UsuarioAdministrador extends Usuario{
         }
 
         this.meuControle.criarConta(secretKey, login, id_user, senha);
-        //Inicializar a playslist ou criar aqui em memoria principal------------------------------------------------------Dario
+        File fp = new File("src/playlist/"+id_user+".txt");
+        try {
+			fp.createNewFile();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     };
 
 }

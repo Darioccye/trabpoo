@@ -39,7 +39,4 @@ public class MusicaInstrumental extends Musica {
         return "(MusicaInstrumental) " + s + ", Nome do Arquivo da Partitura: " + nomeArqPartitura + "\n";
     }
 
-
-
-
 }

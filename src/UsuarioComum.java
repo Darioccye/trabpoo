@@ -8,11 +8,16 @@ public class UsuarioComum extends Usuario{
     public void criaColecao(){
 
     };
-    public void escolheMusica(){
 
+
+    public void visualizaMusica(Integer id){
+        for(Musica m:this.musicas){
+            if(m.getId() == id){
+                System.out.println("A música existe na sua Playlist: ");
+                System.out.println(m);
+            }
+        }
     };
-    public void removeMusica(){};
-    public void visualizaMusica(){};
     
     public void cadastraSelf(){};//Ja feito abaixo
     public void removeSelf(){}//Ja feito abaixo

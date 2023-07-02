@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 public class UsuarioAdministrador extends Usuario{
-// this.musicas
+
     public void atualizaMusica(Musica musica){
         for(Musica m:this.musicas){
             if(m.getId() == musica.getId()){
@@ -28,6 +28,7 @@ public class UsuarioAdministrador extends Usuario{
             }
         }
     };
+
 
     public Musica criaMusica(){
         System.out.println("Música Instrumental (1) ou Canção (2)?");

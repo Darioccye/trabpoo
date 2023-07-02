@@ -35,13 +35,14 @@ public class InputOutput {
           return true;
     }
 
+
     public static boolean escritaBinarioMusica(String arquivo, Musica musica){
         String tag = musica.getTag().toString();
         String id = musica.getId().toString();
         String dmin = musica.getDuracaomin().toString();
         String dseg = musica.getDuracaoseg().toString();
-        escritaBinarioString(arquivo, id);
         escritaBinarioString(arquivo, tag);
+        escritaBinarioString(arquivo, id);
         escritaBinarioString(arquivo, dmin);
         escritaBinarioString(arquivo, dseg);
         escritaBinarioString(arquivo, musica.getTitulo());
@@ -93,32 +94,6 @@ public class InputOutput {
 
     public static void escritaArquivoTexto(String nomeArq, String str){
 
-    }
-
-    public static String leituraArquivoTexto(String nomeArq){
-            FileReader fr = null;
-            BufferedReader br = null;
-            String texto = "";
-
-            try {
-                fr = new FileReader(nomeArq);
-                br = new BufferedReader(fr);
-                boolean eof = false;
-
-                do{
-                    String s = br.readLine();
-                    if (s==null){
-                        eof = true;
-                    }
-                    else{
-                        texto = texto + s + "\n";
-                    }
-                }while (!eof);
-
-            } catch (IOException ex) {
-                Logger.getLogger(Letra___NaoUtilizada.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return texto;
     }
 
     public static String leituraCriptografia(String path){

@@ -18,6 +18,7 @@ public abstract class Usuario {
         return null;
     };
 
+
     public void removeMusica(Musica musica){
         if(this.musicas.contains(musica)) {
             this.musicas.remove(musica);

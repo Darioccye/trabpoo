@@ -126,19 +126,3 @@ public class Controle {
         }
     };
 }
-
-
-
-/*
---SecretKey para String:
-// create new key
-SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
-// get base64 encoded version of the key
-String encodedKey = Base64.getEncoder().encodeToString(secretKey.getEncoded());
-
---String para SecretKey:
-// decode the base64 encoded string
-byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-// rebuild key using SecretKeySpec
-SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
- */

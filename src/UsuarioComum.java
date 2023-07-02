@@ -19,9 +19,6 @@ public class UsuarioComum extends Usuario{
             }
         }
     };
-    
-    public void cadastraSelf(){};//Ja feito abaixo
-    public void removeSelf(){}//Ja feito abaixo
 
     public UsuarioComum(Controle meuControle){
         this.nome = null;

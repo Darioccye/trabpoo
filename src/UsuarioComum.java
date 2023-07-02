@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -67,7 +68,12 @@ public class UsuarioComum extends Usuario{
         }
 
         this.meuControle.criarConta(secretKey, this.login, this.identificador, senha);
-        //Inicializar a playslist ou criar aqui------------------------------------------------------Dario
+        File arquivo = new File("src/playlist/"+identificador+".txt");
+        try {
+			arquivo.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     };
 
 

@@ -119,7 +119,12 @@ public class UsuarioAdministrador extends Usuario{
         }
 
         this.meuControle.criarConta(secretKey, login, id_user, senha);
-        //Inicializar a playslist ou criar aqui em memoria principal------------------------------------------------------Dario
+        File fp = new File("src/playlist/"+id_user+".txt");
+        try {
+			fp.createNewFile();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     };
 
 }

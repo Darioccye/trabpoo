@@ -25,7 +25,6 @@ public class InputOutput {
                             new FileOutputStream(arquivo, true)));
             byte[] strToBytes = str.getBytes();
             outputStream.write(strToBytes);
-            System.out.println("Escrita com sucesso");
 
             outputStream.close();}
           catch(IOException ie){
@@ -49,6 +48,19 @@ public class InputOutput {
         escritaBinarioString(arquivo, musica.getAutores());
         escritaBinarioString(arquivo, musica.getData());
         escritaBinarioString(arquivo, musica.getGenero());
+        return true;
+    }
+
+    public static boolean escritaBinarioColecao(String arquivo, Collection<Musica> colecao){
+        try{  // Limpa o Arquivo para escrever a Collection depois.
+            PrintWriter writer = new PrintWriter(arquivo);
+            writer.close();
+        } catch(IOException ie){
+            System.out.println(ie.toString());
+        }
+        for(Musica m:colecao){
+            escritaBinarioMusica(arquivo, m);
+        }
         return true;
     }
 

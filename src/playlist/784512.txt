@@ -7,7 +7,7 @@ Peach Pit
 19/08/2017
 Indie Pop
 1
-1
+2
 0
 23
 poo
@@ -15,7 +15,7 @@ poo
 21
 231
 1
-1
+3
 0
 32
 rpopo
@@ -23,10 +23,26 @@ paok
 aspodk
 dpso
 1
-1
+4
 0
 23
 po
 pod
 pk
 pol
+2
+1
+4
+29
+Yellow
+Coldplay
+26/06/2000
+Post-britpop
+1
+1
+4
+29
+Yellow
+Coldplay
+26/06/2000
+Post-britpop

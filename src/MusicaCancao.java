@@ -26,7 +26,6 @@ public class MusicaCancao extends Musica {
         this.id = id;
         this.letra = letra;
         this.letraString = "0";
-        System.out.println("construtor 1");
     }
 
 

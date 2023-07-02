@@ -19,16 +19,10 @@ public abstract class Usuario {
     };
 
 
-    public void removeMusica(Musica musica){
-        if(this.musicas.contains(musica)) {
-            this.musicas.remove(musica);
-        }
-    };
-    public void adicionaMusica(Musica musica) {
-        if (!this.musicas.contains(musica)) {
-            this.musicas.add(musica);
-        }
-    }
+
+    public void removeMusica(int id){}
+
+    public void adicionaMusica(Musica musica) {}
 
     public abstract void excluirConta();
     public abstract void excluirConta(String login);

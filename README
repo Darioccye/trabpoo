@@ -1,0 +1,25 @@
+Métodos:
+
+Admin:  buscaMusica(String nome)
+        atualizaMusica(Musica m)
+        criaMusica()
+        adicionaMusica() ---- Possui o criaMusica() dentro
+        removeMusica(int id)
+        buscarUsuario(String login)
+        excluirConta(String email)
+        criarConta(String nome, String login, String senha)
+
+
+
+Comum:  visualizaMusica(int id)
+        buscaMusica(String nome)
+        adicionaMusica(UsuarioAdministrador admin) ---- Escolhe uma música da playlist principal para adicionar
+        removeMusica(int id)
+        excluirConta()
+        criarConta(String nome, String email, String senha)
+
+
+"1 - Adicionar Música à Coleção\n2 - Remover Música da Coleção\n
+3 - Buscar Música da Coleção\n4 - Atualizar Música da Coleção\n
+5 - Buscar Usuário\n6 - Excluir Conta de Usuário\n
+7 - Criar Conta de Usuário\n8 - Checar a Coleção Principal\n9 - Sair do Programa");

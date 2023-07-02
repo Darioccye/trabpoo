@@ -49,19 +49,27 @@ public class UsuarioAdministrador extends Usuario{
     public void adicionaMusica(){
         Musica novaMusica = criaMusica();
         System.out.println(novaMusica.toString());
-/*        if(this.getMusicas().contains(novaMusica)){
+        if(this.getMusicas().contains(novaMusica)){
             System.out.println("Música já cadastrada!");
         }
         else{
             this.getMusicas().add(novaMusica);
-        }*/
-
-        // Fazer persistencia
-        if(novaMusica.getId() == 1){
-
         }
         InputOutput.escritaBinarioMusica("src/playlist/784512.txt", novaMusica);
     }
+
+    public void removeMusica(int id){
+        Musica musica = null;
+        for(Musica m:this.musicas){
+            if(m.getId() == id){
+                musica = m;
+            }
+        }
+        this.musicas.remove(musica);
+        InputOutput.escritaBinarioColecao("scr/playlist/784512.txt", this.musicas);
+
+    };
+
 
     public void adicionaUsuario(){};//Ja feito abaixo
     public void removeUsuario(){};//Ja feito abaixo

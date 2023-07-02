@@ -17,7 +17,6 @@ public abstract class Musica implements Serializable {
 
     public Musica(int Criar) {
         if(Criar == 1){
-            System.out.println("entrou no construtor");
             System.out.println("Título da Música: ");
             String titulo = InputOutput.leituraConsoleString();
             System.out.println("Duração da Música, em segundos: ");

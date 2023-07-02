@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.Collection;
+import java.util.Scanner;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -9,8 +11,19 @@ public class UsuarioComum extends Usuario{
 
     };
 
+    public void removeMusica(int id){
+        Musica musica = null;
+        for(Musica m:this.musicas){
+            if(m.getId() == id){
+                musica = m;
+            }
+        }
+        this.musicas.remove(musica);
+        System.out.println("Música removida");
+        InputOutput.escritaBinarioColecao("scr/playlist/" + this.identificador + ".txt", this.musicas);
+    }
 
-    public void visualizaMusica(Integer id){
+    public void visualizaMusica(int id){
         for(Musica m:this.musicas){
             if(m.getId() == id){
                 System.out.println("A música existe na sua Playlist: ");
@@ -18,7 +31,28 @@ public class UsuarioComum extends Usuario{
             }
         }
     };
-    
+
+    public void adicionaMusica(UsuarioAdministrador admin){
+        Collection<Musica> principal = admin.getMusicas();
+        System.out.println("Escolha um ID: ");
+        System.out.println(principal);
+        Scanner sc = new Scanner(System.in);
+        int i = sc.nextInt();
+        boolean adicionou = false;
+        for(Musica m:principal){
+            if(m.getId() == i && !this.musicas.contains(m)){
+                adicionou = this.musicas.add(m);
+                if(adicionou){
+                    System.out.println("Música Adicionada!");
+                    break;
+                }
+            }
+        }
+        if(!adicionou) {
+            System.out.println("ID não encontrado!");
+        }
+    }
+
     public void cadastraSelf(){};//Ja feito abaixo
     public void removeSelf(){}//Ja feito abaixo
 

@@ -47,7 +47,7 @@ public class UsuarioComum extends Usuario{
             System.out.println("Ja esta registrado no sistema");
             return;
         };
-        String caminho = "security/c_"+login+".txt";
+        String caminho = "src/security/c_"+login+".txt";
         File file = new File(caminho);
         if(file.exists()){
             System.out.println("Usuario ja registrado!");

@@ -17,7 +17,7 @@ public class Controle {
     };
 
     public String autenticarConta(String email, String senha){
-        String caminho = "security/c_"+email+".txt";//Chave criptografada
+        String caminho = "src/security/c_"+email+".txt";//Chave criptografada
 
         String chave_acesso = "a";
         try{
@@ -68,8 +68,8 @@ public class Controle {
     };
 
     public void excluirConta(String email){
-        String c = "security/c_"+ email+".txt";
-        String i = "security/i_"+ email+".txt";
+        String c = "src/security/c_"+ email+".txt";
+        String i = "src/security/i_"+ email+".txt";
 
         String chave_acesso = InputOutput.leituraCriptografia(c);
         String myId = "null";
@@ -90,7 +90,7 @@ public class Controle {
         file = new File(i);//Exclusao da conta do usuario
         file.delete();
 
-        file = new File(file, "security/"+myId+".txt");//Exclusao do ID do usuario
+        file = new File(file, "src/security/"+myId+".txt");//Exclusao do ID do usuario
         file.delete();
     };
 
@@ -113,7 +113,7 @@ public class Controle {
     public String gerarID(){
         Random aleatorio = new Random();
         File file;
-        String caminho = "security/";
+        String caminho = "src/security/";
 
         while(true){
             int numero = aleatorio.nextInt();

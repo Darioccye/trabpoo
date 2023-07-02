@@ -60,7 +60,7 @@ public class UsuarioAdministrador extends Usuario{
         if(novaMusica.getId() == 1){
 
         }
-        InputOutput.escritaBinarioMusica("src/PlaylistPrincipal/null.txt", novaMusica);
+        InputOutput.escritaBinarioMusica("src/playlist/784512.txt", novaMusica);
     }
 
     public void adicionaUsuario(){};//Ja feito abaixo
@@ -68,7 +68,7 @@ public class UsuarioAdministrador extends Usuario{
 
     public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
         //String content;
-        String encodedKey = InputOutput.leituraCriptografia("security/c_"+login+".txt");//Chave
+        String encodedKey = InputOutput.leituraCriptografia("src/security/c_"+login+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         Criptografia desc = new Criptografia(originalKey, "AES/CBC/PKCS5Padding");
@@ -85,13 +85,13 @@ public class UsuarioAdministrador extends Usuario{
         return id;//Retornando o ID de usuario na busca*/
     };
 
-    public UsuarioAdministrador(Controle meuControle){
+    public UsuarioAdministrador(Controle meuControle){/////////////////////////////////////////////////////////////////////////////////Colocar aqui a colecao dele
         this.nome = null;
         this.identificador = "null";//Padrao sem autenticar = "null"
         this.login = null;
         this.senha = null;
         this.meuControle = meuControle;
-      //  this.musicas = InputOutput.leituraBinarioColecao("src/playlistPrincipal/null.txt");
+        this.musicas = InputOutput.leituraBinarioColecao("src/playlist/784512.txt");
     };
 
     public void excluirConta(){//return;
@@ -101,7 +101,7 @@ public class UsuarioAdministrador extends Usuario{
     };
 
     public void criarConta(String nome, String login, String senha){
-        String caminho = "security/c_"+login+".txt";
+        String caminho = "src/security/c_"+login+".txt";
         File file = new File(caminho);
         if(file.exists()){
             System.out.println("Usuario ja registrado!");

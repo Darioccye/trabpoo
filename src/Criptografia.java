@@ -30,16 +30,16 @@ public class Criptografia {
         cipher.init(Cipher.ENCRYPT_MODE, chave);
         byte[] iv = cipher.getIV();
 
-        try (FileOutputStream fileOut = new FileOutputStream("security/"+id+".txt");//Escrita da senha
+        try (FileOutputStream fileOut = new FileOutputStream("src/security/"+id+".txt");//Escrita da senha
         CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)) {
             fileOut.write(iv);
             cipherOut.write(senha.getBytes());
         }
 
         String encodedKey = Base64.getEncoder().encodeToString(chave.getEncoded());
-        InputOutput.escritaCriptografia("security/c_"+login+".txt", encodedKey);//Escrita da chave
+        InputOutput.escritaCriptografia("src/security/c_"+login+".txt", encodedKey);//Escrita da chave
 
-        try (FileOutputStream fileOut = new FileOutputStream("security/i_"+login+".txt");//Escrita do id
+        try (FileOutputStream fileOut = new FileOutputStream("src/security/i_"+login+".txt");//Escrita do id
         CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher)) {
             fileOut.write(iv);
             cipherOut.write(id.getBytes());
@@ -48,11 +48,11 @@ public class Criptografia {
 
     public String desencriptar(String email, int escolha) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, IOException, InvalidAlgorithmParameterException {
         String content;
-        String encodedKey = InputOutput.leituraCriptografia("security/c_"+email+".txt");//Chave
+        String encodedKey = InputOutput.leituraCriptografia("src/security/c_"+email+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
-        try (FileInputStream fileIn = new FileInputStream("security/i_"+ email +".txt")) {//Descriptografou a chave
+        try (FileInputStream fileIn = new FileInputStream("src/security/i_"+ email +".txt")) {//Descriptografou a chave
             byte[] fileIv = new byte[16];
             fileIn.read(fileIv);
             cipher.init(Cipher.DECRYPT_MODE, originalKey, new IvParameterSpec(fileIv));
@@ -74,7 +74,7 @@ public class Criptografia {
         }
         if(escolha == 1) return content;
 
-        try (FileInputStream fileIn = new FileInputStream("security/"+ content +".txt")) {//Descriptografou o ID
+        try (FileInputStream fileIn = new FileInputStream("src/security/"+ content +".txt")) {//Descriptografou o ID
             content = null;
             byte[] fileIv = new byte[16];
             fileIn.read(fileIv);

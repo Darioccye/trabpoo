@@ -54,6 +54,7 @@ public abstract class Usuario {
             System.out.println("Nao autenticado!");
             return;
         };
+        this.musicas = InputOutput.leituraBinarioColecao("src/playlist/"+identificador+".txt");
         System.out.println("Autenticado!");
     };
     

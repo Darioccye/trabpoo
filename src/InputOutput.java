@@ -96,6 +96,32 @@ public class InputOutput {
 
     }
 
+    public static String leituraArquivoTexto(String nomeArq){
+        FileReader fr = null;
+        BufferedReader br = null;
+        String texto = "";
+
+        try {
+            fr = new FileReader(nomeArq);
+            br = new BufferedReader(fr);
+            boolean eof = false;
+
+            do{
+                String s = br.readLine();
+                if (s==null){
+                    eof = true;
+                }
+                else{
+                    texto = texto + s + "\n";
+                }
+            }while (!eof);
+
+        } catch (IOException ex) {
+            Logger.getLogger(Letra___NaoUtilizada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return texto;
+    }
+
     public static String leituraCriptografia(String path){
         FileReader fr;
         BufferedReader br;

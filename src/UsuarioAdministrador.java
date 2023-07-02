@@ -92,6 +92,8 @@ public class UsuarioAdministrador extends Usuario{
         this.senha = null;
         this.meuControle = meuControle;
         this.musicas = InputOutput.leituraBinarioColecao("src/playlist/784512.txt");
+        this.musicas = InputOutput.leituraBinarioColecao("src/playlistPrincipal/null.txt");
+
     };
 
     public void excluirConta(){//return;

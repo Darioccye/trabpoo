@@ -19,9 +19,15 @@ public class Main {
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);
       //  admin.adicionaMusica();
+
         ColecaoMusicas colecao = new ColecaoMusicas();
         colecao.setColecao(InputOutput.leituraBinarioColecao("src/playlist/784512.txt"));
         System.out.println(colecao);
+
+/*        ColecaoMusicas colecao = new ColecaoMusicas();
+        colecao.setColecao(InputOutput.leituraBinarioColecao("src/playlistPrincipal/null.txt"));
+        System.out.println(colecao);*/
+        System.out.println(admin.getMusicas());
         /*-+-+-+-+-+-+-+-+-+Login e senha da conta principal do sistema+-+-+-+-+-+-+-+-+-
          * login: admin
          * senha: fromIncludeImport01

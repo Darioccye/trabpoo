@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class MusicaInstrumental extends Musica {
     public String nomeArqPartitura;
 
@@ -12,15 +10,14 @@ public class MusicaInstrumental extends Musica {
         this.data = data;
         this.genero = genero;
         this.id = id;
+        this.nomeArqPartitura = nomeArqPartitura;
     }
 
 
     public MusicaInstrumental(Integer tag) {
         super(1);
         this.setTag(1);
-        System.out.println("Qual o nome do arquivo da partitura? ");
-        String nomeArqPartitura = InputOutput.leituraConsoleString();
-        this.nomeArqPartitura = nomeArqPartitura;
+        this.nomeArqPartitura = "src/instrumental/" + id + ".txt";
     }
 
 

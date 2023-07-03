@@ -46,7 +46,7 @@ public class UsuarioAdministrador extends Usuario{
         return musica;
     }
 
-    public void adicionaMusica(){
+    public void adicionarMusica(){
         Musica novaMusica = criaMusica();
         System.out.println(novaMusica.toString());
         if(this.getMusicas().contains(novaMusica)){
@@ -66,7 +66,7 @@ public class UsuarioAdministrador extends Usuario{
             }
         }
         this.musicas.remove(musica);
-        InputOutput.escritaBinarioColecao("scr/playlist/784512.txt", this.musicas);
+        InputOutput.escritaBinarioColecao("src/playlist/784512.txt", this.musicas);
 
     };
 

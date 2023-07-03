@@ -25,7 +25,7 @@ public class MusicaCancao extends Musica {
         this.genero = genero;
         this.id = id;
         this.letra = letra;
-        this.letraString = "0";
+        this.letraString = InputOutput.leituraArquivoTexto(letra);
     }
 
 

@@ -37,7 +37,16 @@ public abstract class Usuario {
         this.musicas = musicas;
     }
 
-    public void autenticar(String login, String senha, String nome){
+    public void visualizaMusica(Musica musica){
+        if(musica == null){
+            System.out.println("Sem musica a visualizar!");
+            return;
+        }
+        System.out.println(musica);
+    };
+
+
+    public void autenticar(String login, String senha){
         if(this.identificador != "null"){
             System.out.println("Ja esta autenticado!");
             return;
@@ -48,11 +57,12 @@ public abstract class Usuario {
             System.out.println("Nao autenticado!");
             return;
         };
-        this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.musicas = InputOutput.leituraBinarioColecao("src/playlist/"+identificador+".txt");
         System.out.println("Autenticado!");
+
+        //Puxar nossa playlist da pasata playlist
     };
     
 

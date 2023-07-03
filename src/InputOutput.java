@@ -65,6 +65,12 @@ public class InputOutput {
     }
 
 
+    public static String leituraBinarioString(String arquivo){
+        Scanner scanner = new Scanner(arquivo);
+        String in = scanner.nextLine();
+        return in;
+    }
+
     public static Collection<Musica> leituraBinarioColecao(String arquivo){
         try {
             RandomAccessFile raf = new RandomAccessFile(arquivo, "r");
@@ -88,10 +94,12 @@ public class InputOutput {
                 i = raf.readLine();
                 String genero = i;
                 if(tag == 1){
-                    musica = new MusicaInstrumental(tag, id, dmin, dseg, titulo, autores, data, genero, "src/instrumental/null.txt");
+                    String patitura = "src/instrumental/"+id+".txt";
+                    musica = new MusicaInstrumental(tag, id, dmin, dseg, titulo, autores, data, genero, patitura);
                 }
                 else if(tag == 2){
-                    musica = new MusicaCancao(tag, id, dmin, dseg, titulo, autores, data, genero, "src/cancao/null.txt");
+                    String letra = "src/cancao/"+id+".txt";
+                    musica = new MusicaCancao(tag, id, dmin, dseg, titulo, autores, data, genero, letra);
                 }
                 colecao.add(musica);
             }
@@ -104,9 +112,6 @@ public class InputOutput {
         return null;
     }
 
-    public static void escritaArquivoTexto(String nomeArq, String str){
-
-    }
 
     public static String leituraArquivoTexto(String nomeArq){
         FileReader fr = null;

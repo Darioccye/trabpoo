@@ -24,16 +24,7 @@ public class UsuarioComum extends Usuario{
         InputOutput.escritaBinarioColecao("scr/playlist/" + this.identificador + ".txt", this.musicas);
     }
 
-    public void visualizaMusica(int id){
-        for(Musica m:this.musicas){
-            if(m.getId() == id){
-                System.out.println("A música existe na sua Playlist: ");
-                System.out.println(m);
-            }
-        }
-    };
-
-    public void adicionaMusica(UsuarioAdministrador admin){
+    public void adicionarMusica(UsuarioAdministrador admin){
         Collection<Musica> principal = admin.getMusicas();
         System.out.println("Escolha um ID: ");
         System.out.println(principal);
@@ -45,6 +36,7 @@ public class UsuarioComum extends Usuario{
                 adicionou = this.musicas.add(m);
                 if(adicionou){
                     System.out.println("Música Adicionada!");
+                    InputOutput.escritaBinarioColecao("scr/playlist/" + this.identificador + ".txt", this.musicas);
                     break;
                 }
             }
@@ -54,8 +46,6 @@ public class UsuarioComum extends Usuario{
         }
     }
 
-    public void cadastraSelf(){};//Ja feito abaixo
-    public void removeSelf(){}//Ja feito abaixo
 
     public UsuarioComum(Controle meuControle){
         this.nome = null;
@@ -79,7 +69,7 @@ public class UsuarioComum extends Usuario{
 
     public void criarConta(String nome, String login, String senha){
         if(this.identificador != "null"){
-            System.out.println("Ja esta registrado no sistema");
+            System.out.println("Ja esta logado no sistema");
             return;
         };
         String caminho = "src/security/c_"+login+".txt";
@@ -108,6 +98,8 @@ public class UsuarioComum extends Usuario{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+        System.out.println("Registrado com sucesso no sistema!");
+
     };
 
 

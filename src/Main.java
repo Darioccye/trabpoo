@@ -1,205 +1,198 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
-import java.util.Scanner;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException{
         Criptografia inicializa = new Criptografia();//Preciso dele para comecar a ler e usar o sistema
 
         Controle controle = new Controle(inicializa);//Controle usado pelo usuario comum ou usuario administrador
 
         UsuarioComum user = new UsuarioComum(controle);
         UsuarioAdministrador admin = new UsuarioAdministrador(controle);
-        //  admin.adicionaMusica();
 
-        Scanner scanner = new Scanner(System.in);
-        int tipo = 0;
-        while (tipo != 1 && tipo != 2) {
+
+        while(true){//Loop principal, nenhum autenticado
+
             System.out.println("Qual o tipo de Usuário?\nComum (1) ou Administrador (2)?");
-            tipo = scanner.nextInt();
+            int tipoDeConta = InputOutput.leituraConsoleint();
 
-/*
-            if(tipo == 1){
-                System.out.println("Qual o login?");
-                String login = scanner.nextLine();
-                System.out.println("Qual a senha?");
-                String senha = scanner.nextLine();
-                user.autenticar(login, senha);
+            if(tipoDeConta != 1 && tipoDeConta != 2){
+                System.out.println("-----------------Opcao invalida!-----------------\n");
+                continue;
             }
-            else if(tipo == 2){
-                System.out.println("Qual o login?");
-                String login = scanner.nextLine();
-                System.out.println("Qual a senha?");
-                String senha = scanner.nextLine();
+
+            System.out.println("Qual o login?");
+            String login = InputOutput.leituraConsoleString();
+            System.out.println("Qual a senha?");
+            String senha = InputOutput.leituraConsoleString();
+
+
+
+            if(tipoDeConta == 1){//Usuario Comum
+                System.out.println("Voce quer criar conta ou entrar 1 - Criar\t2 - Entrar?");
+                int conta = InputOutput.leituraConsoleint();
+                if(conta != 1 && conta != 2){
+                    System.out.println("Opcao invalida! Retornando ao inicio...\n");
+                    continue;
+                };
+
+                if(conta == 1){
+                    System.out.print("Digite o seu nome: ");
+                    String nome = InputOutput.leituraConsoleString();
+                    user.criarConta(nome, login, senha);
+                }else{
+                    user.autenticar(login, senha);
+                };
+
+                if(user.identificador != "null"){//Foi autenticado ou nao
+
+                    //Chamar aqui a iniciacao da playlist--------------------------------------------------------------------------
+                    while(true){
+                        System.out.println("Qual opção você quer acessar?");
+                        System.out.println("1 - Adicionar Música\n2 - Remover Música\n3 - Buscar e Visualizar Música\n4 - Checar existencia de Música\n5 - Checar a Coleção Principal\n6 - Excluir sua Conta\n7 - Sair do Programa");
+                        
+                        int opcaoUsuario = InputOutput.leituraConsoleint();
+
+                        if(opcaoUsuario == 1){
+                            user.adicionarMusica(admin);
+                            continue;
+                        };
+                        if(opcaoUsuario == 2){
+                            if(user.musicas == null){
+                                System.out.println("Nao tem musicas a remover!");
+                            }else{
+                                System.out.println("Digite um ID a remover!");
+                                int id = InputOutput.leituraConsoleint();
+                                user.removeMusica(id);
+                            };
+                            continue;
+                        };
+                        if(opcaoUsuario == 3){
+                            if(user.musicas == null){
+                                System.out.println("Nao tem musicas a buscar!");
+                            }else{
+                                System.out.println("Qual o nome da musica a buscar?");
+                                String nome = InputOutput.leituraConsoleString();
+                                Musica musica = user.buscaMusica(nome);
+                                user.visualizaMusica(musica);
+                            };
+                            continue;
+                        };
+                        if(opcaoUsuario == 4){
+                            if(user.musicas == null){
+                                System.out.println("Sem musicas a checar!");
+                            }else{
+                                System.out.println("Qual musica (nome) voce quer checar?");
+                                String nome = InputOutput.leituraConsoleString();
+                                Musica musica = user.buscaMusica(nome);
+                                if(musica == null){
+                                    System.out.println("Musica nao contida!");
+                                }else{
+                                    System.out.println("Musica contida!");
+                                }
+                            };
+                            continue;
+                        };
+                        if(opcaoUsuario == 5){
+                            System.out.println("---------------Colecao Principal---------------");
+                            System.out.println(admin.getMusicas());
+                            continue;
+                        };
+                        if(opcaoUsuario == 6){
+                            user.excluirConta();
+                            System.out.println("Saiu do sistema!");
+                            break;
+                        };
+                        if(opcaoUsuario == 7){
+                            System.out.println("Saiu do sistema!");
+                            break;
+                        };
+                    }
+                    continue;
+                }else continue;//Nao foi autenticado
+            };
+
+
+            if(tipoDeConta == 2){//Usuario Admin
                 admin.autenticar(login, senha);
+                if(admin.identificador != "null"){//Autenticado ou nao autenticado
+                    while(true){
+                        System.out.println("Qual opcao voce quer acessar Administrador?");
+                        System.out.println("1 - Adicionar Musica\n2 - Remover Musica\n3 - Buscar e visualizar Musica\n4 - Atualizar Musica\n5 - Buscar e visualizar usuario\n6 - Excluir Conta de usuario\n7 - Criar conta de usuario\n8 - Checar a colecao principal\n9 - Sair do Programa");
+                        
+                        int opcaoAdmin = InputOutput.leituraConsoleint();
+                        
+                        if(opcaoAdmin == 1){
+                            System.out.println("Criar nova musica!");
+                            admin.adicionarMusica();
+                            continue;
+                        };
+                        if(opcaoAdmin == 2){
+                            System.out.println("Qual ID da musica voce quer remover?");
+                            int id = InputOutput.leituraConsoleint();
+                            admin.removeMusica(id);
+                            continue;
+                        };
+                        if(opcaoAdmin == 3){
+                            System.out.println("Qual musica buscar/visualizar?");
+                            String nome = InputOutput.leituraConsoleString();
+                            Musica musica;
+                            musica = admin.buscaMusica(nome);
+                            admin.visualizaMusica(musica);
+                            continue;
+                        };
+                        if(opcaoAdmin == 4){
+                            System.out.println("A musica a ser atualizada sera substituida à nova a ser criada");
+                            Musica musica = admin.criaMusica();
+                            admin.atualizaMusica(musica);
+                            continue;
+                        };
+                        if(opcaoAdmin == 5){//Retorna o Id do usuario
+                            System.out.println("Digite o login do usuario!");
+                            String loginTemp = InputOutput.leituraConsoleString();
+                            String idTemp = admin.buscarUsuario(loginTemp);
+                            System.out.println("O id do usuario "+loginTemp+"e "+idTemp);
+                            continue;
+                        };
+                        if(opcaoAdmin == 6){
+                            System.out.println("Digite o login do usuario a ser excluido");
+                            String nomeUsuario = InputOutput.leituraConsoleString();
+                            admin.excluirConta(nomeUsuario);
+                            continue;
+                        };
+                        if(opcaoAdmin == 7){
+                            System.out.println("Digite usuario a ser adicionado");
+                            String nome = InputOutput.leituraConsoleString();
+                            System.out.println("Digite o email");
+                            String emailUser = InputOutput.leituraConsoleString();
+                            String senhaUser = InputOutput.leituraConsoleString();
+                            admin.criarConta(nome, emailUser, senhaUser);
+                            continue;
+                        };
+                        if(opcaoAdmin == 8){
+                            System.out.println("Colecao Principal");
+                            System.out.println(admin.getMusicas());
+                            continue;
+                        };
+                        if(opcaoAdmin == 9){
+                            System.out.println("Saindo do Programa...");
+                            break;
+                        }
+                    }
+                }else continue;
             }
-            else{
-                System.out.println("Opção não existente!");
-            }
-        }
-*/
-
-            if (tipo == 1) {
-                boolean programa = true;
-                System.out.println("Qual opção você quer acessar?");
-                System.out.println("1 - Adicionar Música\n2 - Remover Mùsica\n3 - Buscar Música\n4 - Visualizar Música\n5 - Checar sua Playlist\n6 - Checar a Coleção Principal\n7 - Excluir sua Conta\n8 - Criar Nova Conta\n9 - Mostrar Opções\n10 - Sair do Programa");
-                System.out.println("Lembre-se: Essas opções só aparecerão de novo caso a opção 9 seja escolhida.");
-                while (programa) {
-                    int opcao = scanner.nextInt();
-                    Musica m;
-                    boolean playlist = true;
-                    if(user.getMusicas() == null){
-                        playlist = false;
-                    }
-                    if (opcao == 1) {
-                        if(!playlist){
-                            System.out.println("Você ainda não possui playlist");
-                        }
-                        else{
-                            user.adicionaMusica(admin);
-                    }}
-                    if (opcao == 2) {
-                        if(!playlist){
-                            System.out.println("Você ainda não possui playlist");
-                        }
-                        else{
-                            System.out.println("Qual o ID da música que você quer retirar?");
-                            int removeID = scanner.nextInt();
-                            user.removeMusica(removeID);
-                    }}
-                    if (opcao == 3) {
-                        if(!playlist){
-                            System.out.println("Você ainda não possui playlist");
-                        }
-                        else{
-                            System.out.println("Qual o nome da música que você quer buscar?");
-                            String blank = scanner.next();
-                            String nomemusica = scanner.nextLine();
-                            m = user.buscaMusica(nomemusica);
-                    }}
-                    if (opcao == 4) {
-                        if(!playlist){
-                            System.out.println("Você ainda não possui playlist");
-                        }
-                        else{
-                            System.out.println("Qual o ID da música você quer visualizar?");
-                            int visID = scanner.nextInt();
-                            user.visualizaMusica(visID);
-                    }}
-
-                    if (opcao == 5) {
-                        if(!playlist){
-                            System.out.println("Você ainda não possui playlist");
-                        }
-                        else{
-                            System.out.println("Playlist do Usuário:");
-                            System.out.println(user.getMusicas());
-                    }}
-                    if (opcao == 6) {
-                        System.out.println("Coleção Principal:");
-                        System.out.println(admin.getMusicas());
-                    }
-                    if (opcao == 7) {
-                        user.excluirConta();
-                    }
-                    if (opcao == 8) {
-                        System.out.println("Digite seu nome: ");
-                        String blank = scanner.next();
-                        String nome = scanner.nextLine();
-                        System.out.println("Digite seu email: ");
-                        String email = scanner.nextLine();
-                        System.out.println("Digite sua senha: ");
-                        String senha = scanner.nextLine();
-                        user.criarConta(nome, email, senha);
-                        System.out.println("Operação Completa, digite outra opção.");
-                    }
-                    if (opcao == 9){
-                        System.out.println("1 - Adicionar Música\n2 - Remover Mùsica\n3 - Buscar Música\n4 - Visualizar Música\n5 - Checar sua Playlist\n6 - Checar a Coleção Principal\n7 - Excluir sua Conta\n8 - Criar Nova Conta\n9 - Mostrar Opções\n10 - Sair do Programa");
-                    }
-                    if (opcao == 10) {
-                        programa = false;
-                        System.out.println("Saindo do programa...");
-                    }
-                }
-            }
-            if (tipo == 2){
-                boolean programa = true;
-                System.out.println("Qual opção você quer acessar?");
-                System.out.println("1 - Adicionar Música à Coleção\n2 - Remover Música da Coleção\n3 - Buscar Música da Coleção\n4 - Atualizar Música da Coleção\n5 - Buscar Usuário\n6 - Excluir Conta de Usuário\n7 - Criar Conta de Usuário\n8 - Checar a Coleção Principal\n9 - Mostrar Opções\n10 - Sair do Programa");
-                while (programa){
-                    int opcao = scanner.nextInt();
-                    Musica m = null;
-                    if (opcao == 1){
-                        System.out.println("Você criará uma nova música a ser adicionada na Coleção.");
-                        admin.adicionaMusica();
-                    }
-                    if (opcao == 2){
-                        System.out.println("Qual o ID da música?");
-                        int removeID = scanner.nextInt();
-                        admin.removeMusica(removeID);
-                    }
-                    if (opcao == 3){
-                        System.out.println("Qual o nome da música que você quer buscar?");
-                        String blank = scanner.next();
-                        String nomemusica = scanner.nextLine();
-                        m = admin.buscaMusica(nomemusica);
-                    }
-                    if (opcao == 4){
-                        System.out.println("Você atualizará uma música. Para isso, crie a música, com o mesmo ID, e faça suas modificações.");
-                        m = admin.criaMusica();
-                        admin.atualizaMusica(m);
-                    }
-                    if (opcao == 5){
-                        System.out.println("Digite o login do Usuário a ser buscado:");
-                        String blank = scanner.next();
-                        String login = scanner.nextLine();
-                        admin.buscarUsuario(login);
-                    }
-                    if (opcao == 6){
-                        System.out.println("Digite o login do Usuário a ser excluído");
-                        String blank = scanner.next();
-                        String login = scanner.nextLine();
-                        admin.excluirConta(login);
-                    }
-                    if (opcao == 7){
-                        System.out.println("Digite seu nome: ");
-                        String nome = scanner.nextLine();
-                        System.out.println("Digite seu email: ");
-                        String email = scanner.nextLine();
-                        System.out.println("Digite sua senha: ");
-                        String senha = scanner.nextLine();
-                        admin.criarConta(nome, email, senha);
-                        System.out.println("Operação Completa, digite outra opção.");
-                    }
-                    if (opcao == 8){
-                        System.out.println("Coleção Principal:");
-                        System.out.println(admin.getMusicas());
-                    }
-                    if (opcao == 9){
-                        System.out.println("1 - Adicionar Música à Coleção\n2 - Remover Música da Coleção\n3 - Buscar Música da Coleção\n4 - Atualizar Música da Coleção\n5 - Buscar Usuário\n6 - Excluir Conta de Usuário\n7 - Criar Conta de Usuário\n8 - Checar a Coleção Principal\n9 - Mostrar Opções\n10 - Sair do Programa");
-                    }
-                    if (opcao == 10){
-                        programa = false;
-                        System.out.println("Saindo do programa...");
-                    }
-                }
-            }
-
-            /*-+-+-+-+-+-+-+-+-+Login e senha da conta principal do sistema+-+-+-+-+-+-+-+-+-
-             * login: admin
-             * senha: fromIncludeImport01
-             */
-
-
         }
     }
 }
+
+
+/*-+-+-+-+-+-+-+-+-+Login e senha da conta principal do sistema+-+-+-+-+-+-+-+-+-
+* login: admin
+* senha: fromIncludeImport01
+*/

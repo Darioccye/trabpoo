@@ -71,6 +71,12 @@ public class Controle {
         String c = "src/security/c_"+ email+".txt";
         String i = "src/security/i_"+ email+".txt";
 
+        File teste = new File(c);
+        if(!teste.exists()){
+            System.out.println("Usuario nao existe");
+            return;
+        }
+
         String chave_acesso = InputOutput.leituraCriptografia(c);
         String myId = "null";
 
@@ -84,13 +90,17 @@ public class Controle {
         }catch(Exception e){
             //Tratar erros
         };
+        System.out.println(myId);
         File file = new File(c);//Exclusao da conta do usuario
         file.delete();
 
         file = new File(i);//Exclusao da conta do usuario
         file.delete();
 
-        file = new File(file, "src/security/"+myId+".txt");//Exclusao do ID do usuario
+        file = new File("src/security/"+myId+".txt");//Exclusao do ID do usuario
+        file.delete();
+
+        file = new File("src/playlist/"+myId+".txt");
         file.delete();
     };
 

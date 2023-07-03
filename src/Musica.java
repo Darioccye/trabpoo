@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.*;
 
 public abstract class Musica implements Serializable {
     protected Integer tag;
@@ -17,6 +16,8 @@ public abstract class Musica implements Serializable {
 
     public Musica(int Criar) {
         if(Criar == 1){
+            System.out.println("ID da Nova Música: ");
+            int ident = InputOutput.leituraConsoleint();
             System.out.println("Título da Música: ");
             String titulo = InputOutput.leituraConsoleString();
             System.out.println("Duração da Música, em segundos: ");
@@ -35,7 +36,7 @@ public abstract class Musica implements Serializable {
             this.autores = autores;
             this.data = data;
             this.genero = genero;
-            this.id = 1;
+            this.id = ident;
         }
     }
 

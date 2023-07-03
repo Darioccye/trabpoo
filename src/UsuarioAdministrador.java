@@ -70,10 +70,6 @@ public class UsuarioAdministrador extends Usuario{
 
     };
 
-
-    public void adicionaUsuario(){};//Ja feito abaixo
-    public void removeUsuario(){};//Ja feito abaixo
-
     public String buscarUsuario(String login) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
         String encodedKey = InputOutput.leituraCriptografia("src/security/c_"+login+".txt");//Chave
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
@@ -90,10 +86,9 @@ public class UsuarioAdministrador extends Usuario{
         this.senha = null;
         this.meuControle = meuControle;
         this.musicas = InputOutput.leituraBinarioColecao("src/playlist/784512.txt");
-
     };
 
-    public void excluirConta(){//return;
+    public void excluirConta(){//Vazio o metodo
     };
     public void excluirConta(String email){
         this.meuControle.excluirConta(email);

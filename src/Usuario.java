@@ -37,17 +37,20 @@ public abstract class Usuario {
         this.musicas = musicas;
     }
 
-    public void autenticar(){
+    public void autenticar(String login, String senha, String nome){
         if(this.identificador != "null"){
             System.out.println("Ja esta autenticado!");
             return;
         };
-        //Entradas de login e senha a fazer antes de passar null---------------------------------------------FABIO
+
         this.identificador = this.meuControle.autenticarConta(login, senha);
         if(identificador == "null"){
             System.out.println("Nao autenticado!");
             return;
         };
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
         this.musicas = InputOutput.leituraBinarioColecao("src/playlist/"+identificador+".txt");
         System.out.println("Autenticado!");
     };

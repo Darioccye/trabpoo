@@ -1,5 +1,4 @@
-Escrever aqui os tipos de metodos e como manipular a classe Main, alem de
-erros e o que falta da classe.
+Observações gerais sobre o código:
 
 Por motivos didáticos e de facilidade, este é o login e senha do Usuario Administrador:
 login: admin
@@ -12,6 +11,15 @@ Há também, um Usuário Comum já criado:
 login: arroz
 senha: feijao
 Esse usuário possui duas música em sua playlist, com ID 4 (Nocturne Op.9) e ID 3 (Aquarela).
+
+Todas as Músicas da Coleção Principal ficam salvas, de forma binária, no arquivo src/playlist/784512.txt
+Todas as Músicas da Coleção Particular (Playlist) ficam salvas, de forma binária, no arquivo src/playlist/id.txt, onde
+id é o id do usuário em particular.
+
+As especificações da Canção e da Música Instrumental são salvas nas pastas src/cancao e src/instrumental.
+
+A pasta src/security é responsável para guardar os arquivos responsáveis pela criptografia do código.
+Implementação da criptografia nos códigos src/Criptografia, src/Controle e parte em src/InputOutput.
 
 OBS 1: Para a inclusão de uma música, é necessário colocar o arquivo .txt dentro da
 pasta cancao (para canções) ou da pasta instrumental (para músicas instrumentais) antes

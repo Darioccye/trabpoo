@@ -21,12 +21,16 @@ import javax.crypto.spec.SecretKeySpec;
 public class UsuarioAdministrador extends Usuario{
 
     public void atualizaMusica(Musica musica){
+        boolean atualizou = false;
         for(Musica m:this.musicas){
-            if(m.getId() == musica.getId()){
+            if(m.getId() == musica.getId()) {
                 this.musicas.remove(m);
                 this.musicas.add(musica);
+                atualizou = true;
             }
         }
+        if(atualizou) System.out.println("Música Atualizada!");
+        else System.out.println("ID não existente na Coleção!");
     };
 
 
@@ -60,12 +64,16 @@ public class UsuarioAdministrador extends Usuario{
 
     public void removeMusica(int id){
         Musica musica = null;
+        boolean removeu = false;
         for(Musica m:this.musicas){
             if(m.getId() == id){
                 musica = m;
+                removeu = true;
             }
         }
         this.musicas.remove(musica);
+        if(removeu) System.out.println("Música removida com sucesso");
+        else System.out.println("ID não existente na Coleção");
         InputOutput.escritaBinarioColecao("src/playlist/784512.txt", this.musicas);
 
     };

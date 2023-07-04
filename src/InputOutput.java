@@ -134,7 +134,7 @@ public class InputOutput {
             }while (!eof);
 
         } catch (IOException ex) {
-            Logger.getLogger(Letra___NaoUtilizada.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
         }
         return texto;
     }

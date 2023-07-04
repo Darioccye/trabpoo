@@ -21,7 +21,7 @@ public class UsuarioComum extends Usuario{
         }
         this.musicas.remove(musica);
         System.out.println("Música removida");
-        InputOutput.escritaBinarioColecao("scr/playlist/" + this.identificador + ".txt", this.musicas);
+        InputOutput.escritaBinarioColecao("src/playlist/" + this.identificador + ".txt", this.musicas);
     }
 
     public void adicionarMusica(UsuarioAdministrador admin){
@@ -32,11 +32,11 @@ public class UsuarioComum extends Usuario{
         int i = sc.nextInt();
         boolean adicionou = false;
         for(Musica m:principal){
-            if(m.getId() == i && !this.musicas.contains(m)){
+            if(this.musicas == null || (m.getId() == i && !this.musicas.contains(m))){
                 adicionou = this.musicas.add(m);
                 if(adicionou){
                     System.out.println("Música Adicionada!");
-                    InputOutput.escritaBinarioColecao("scr/playlist/" + this.identificador + ".txt", this.musicas);
+                    InputOutput.escritaBinarioColecao("src/playlist/" + this.identificador + ".txt", this.musicas);
                     break;
                 }
             }

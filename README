@@ -1,1 +1,40 @@
-Escrever aqui os tipos de metodos e como manipular a classe Main, alem de erros e o que falta da classe.
+Escrever aqui os tipos de metodos e como manipular a classe Main, alem de
+erros e o que falta da classe.
+
+Por motivos didáticos e de facilidade, este é o login e senha do Usuario Administrador:
+login: admin
+senha: fromIncludeImport01
+Não há a necessidade de implementar, dentro do programa, uma forma de criar um novo admin.
+É mais seguro e recomendável que isso se faça de forma externa ao programa.
+
+O Usuário Comum pode ser criado no programa.
+Há também, um Usuário Comum já criado:
+login: arroz
+senha: feijao
+Esse usuário possui duas música em sua playlist, com ID 4 (Nocturne Op.9) e ID 3 (Aquarela).
+
+OBS 1: Para a inclusão de uma música, é necessário colocar o arquivo .txt dentro da
+pasta cancao (para canções) ou da pasta instrumental (para músicas instrumentais) antes
+do pedido ser feito dentro do programa.
+Dentro do .txt de canções, é esperado uma forma de letra da música.
+Dentro do .txt de instrumentais, é esperado uma forma de partitura. O programa não lê
+a partitura dentro do .txt de instrumentais.
+O arquivo terá que ter o nome com o ID que será cadastrado para a música.
+
+OBS 2: NÃO HÁ A OPÇÃO DE RESGATAR O USUÁRIO CASO O LOGIN/SENHA SEJA PERDIDO. Caso ocorra,
+crie um novo usuário e faça sua playlist do 0.
+
+OBS 3: O programa pode apresentar raros erros caso os dados pedidos sejam de tipo
+diferente do que for escrito no Console. Todas as opções possuem uma palavra-chave
+que determina o tipo esperado, que podem ser do seguinte tipo:
+ID - int, um número
+nome - String, uma frase
+titulo - String, uma frase
+duração - int, um número
+autores - String, uma frase
+data de lançamento - String, uma frase
+gênero - String, uma frase
+login - String, uma frase
+senha - String, uma frase
+
+** Qualquer outra palavra-chave não presente nesse OBS também é passível de erro, mas em escala muito menor.

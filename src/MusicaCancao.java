@@ -7,10 +7,8 @@ public class MusicaCancao extends Musica {
 
     public MusicaCancao(Integer tag) {
         super(1);
-        System.out.println("Qual o arquivo da Letra? ");
-        String letra = InputOutput.leituraConsoleString();
         this.setTag(2);
-        this.letra = letra;
+        this.letra = "src/cancao/" + id + ".txt";
         this.letraString = InputOutput.leituraArquivoTexto(letra);
     }
 

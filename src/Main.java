@@ -19,9 +19,13 @@ public class Main {
 
         while(true){//Loop principal, nenhum autenticado
 
-            System.out.println("Qual o tipo de Usuário?\nComum (1) ou Administrador (2)?");
+            System.out.println("Qual o tipo de Usuário?\nComum (1) ou Administrador (2)?\n(9) Sair do Sistema.");
             int tipoDeConta = InputOutput.leituraConsoleint();
 
+            if(tipoDeConta == 9){
+                System.out.println("Saindo do Sistema...");
+                break;
+            }
             if(tipoDeConta != 1 && tipoDeConta != 2){
                 System.out.println("-----------------Opcao invalida!-----------------\n");
                 continue;
@@ -46,6 +50,8 @@ public class Main {
                     System.out.print("Digite o seu nome: ");
                     String nome = InputOutput.leituraConsoleString();
                     user.criarConta(nome, login, senha);
+                    System.out.println("Conta criada, entre no programa novamente, agora na opção Entrar.");
+                    break;
                 }else{
                     user.autenticar(login, senha);
                 };
@@ -55,7 +61,7 @@ public class Main {
                     //Chamar aqui a iniciacao da playlist--------------------------------------------------------------------------
                     while(true){
                         System.out.println("Qual opção você quer acessar?");
-                        System.out.println("1 - Adicionar Música\n2 - Remover Música\n3 - Buscar e Visualizar Música\n4 - Checar existencia de Música\n5 - Checar a Coleção Principal\n6 - Excluir sua Conta\n7 - Sair do Programa");
+                        System.out.println("1 - Adicionar Música\n2 - Remover Música\n3 - Visualizar Músicas da sua Playlist\n4 - Checar existencia de Música\n5 - Checar a Coleção Principal\n6 - Excluir sua Conta\n7 - Sair do Programa");
                         
                         int opcaoUsuario = InputOutput.leituraConsoleint();
 
@@ -65,7 +71,7 @@ public class Main {
                         };
                         if(opcaoUsuario == 2){
                             if(user.musicas == null){
-                                System.out.println("Nao tem musicas a remover!");
+                                System.out.println("Nao há musicas a remover!");
                             }else{
                                 System.out.println("Digite um ID a remover!");
                                 int id = InputOutput.leituraConsoleint();
@@ -75,12 +81,10 @@ public class Main {
                         };
                         if(opcaoUsuario == 3){
                             if(user.musicas == null){
-                                System.out.println("Nao tem musicas a buscar!");
+                                System.out.println("Nao há músicas na playlist!");
                             }else{
-                                System.out.println("Qual o nome da musica a buscar?");
-                                String nome = InputOutput.leituraConsoleString();
-                                Musica musica = user.buscaMusica(nome);
-                                user.visualizaMusica(musica);
+                                System.out.println("A sua playlist contém: ");
+                                System.out.println(user.musicas);
                             };
                             continue;
                         };
@@ -88,7 +92,7 @@ public class Main {
                             if(user.musicas == null){
                                 System.out.println("Sem musicas a checar!");
                             }else{
-                                System.out.println("Qual musica (nome) voce quer checar?");
+                                System.out.println("Qual o nome da musica que voce quer checar?");
                                 String nome = InputOutput.leituraConsoleString();
                                 Musica musica = user.buscaMusica(nome);
                                 if(musica == null){
@@ -124,7 +128,7 @@ public class Main {
                 if(admin.identificador != "null"){//Autenticado ou nao autenticado
                     while(true){
                         System.out.println("Qual opcao voce quer acessar Administrador?");
-                        System.out.println("1 - Adicionar Musica\n2 - Remover Musica\n3 - Buscar e visualizar Musica\n4 - Atualizar Musica\n5 - Buscar e visualizar usuario\n6 - Excluir Conta de usuario\n7 - Criar conta de usuario\n8 - Checar a colecao principal\n9 - Sair do Programa");
+                        System.out.println("1 - Adicionar Musica\n2 - Remover Musica\n3 - Buscar e visualizar Musica\n4 - Atualizar Musica\n5 - Excluir Conta de usuario\n6 - Criar conta de usuario\n7 - Checar a colecao principal\n8 - Sair do Programa");
                         
                         int opcaoAdmin = InputOutput.leituraConsoleint();
                         
@@ -140,7 +144,7 @@ public class Main {
                             continue;
                         };
                         if(opcaoAdmin == 3){
-                            System.out.println("Qual musica buscar/visualizar?");
+                            System.out.println("Qual o nome da musica a se buscar/visualizar?");
                             String nome = InputOutput.leituraConsoleString();
                             Musica musica;
                             musica = admin.buscaMusica(nome);
@@ -148,39 +152,33 @@ public class Main {
                             continue;
                         };
                         if(opcaoAdmin == 4){
-                            System.out.println("A musica a ser atualizada sera substituida à nova a ser criada");
+                            System.out.println("A musica a ser atualizada sera substituida à nova a ser criada (Precisa ter o mesmo ID)");
                             Musica musica = admin.criaMusica();
                             admin.atualizaMusica(musica);
                             continue;
                         };
-                        if(opcaoAdmin == 5){//Retorna o Id do usuario
-                            System.out.println("Digite o login do usuario!");
-                            String loginTemp = InputOutput.leituraConsoleString();
-                            String idTemp = admin.buscarUsuario(loginTemp);
-                            System.out.println("O id do usuario "+loginTemp+"e "+idTemp);
-                            continue;
-                        };
-                        if(opcaoAdmin == 6){
+                        if(opcaoAdmin == 5){
                             System.out.println("Digite o login do usuario a ser excluido");
                             String nomeUsuario = InputOutput.leituraConsoleString();
                             admin.excluirConta(nomeUsuario);
                             continue;
                         };
-                        if(opcaoAdmin == 7){
-                            System.out.println("Digite usuario a ser adicionado");
+                        if(opcaoAdmin == 6){
+                            System.out.println("Qual o nome da pessoa a ser adicionada?");
                             String nome = InputOutput.leituraConsoleString();
-                            System.out.println("Digite o email");
+                            System.out.println("Digite o login:");
                             String emailUser = InputOutput.leituraConsoleString();
+                            System.out.println("Digite a senha:");
                             String senhaUser = InputOutput.leituraConsoleString();
                             admin.criarConta(nome, emailUser, senhaUser);
                             continue;
                         };
-                        if(opcaoAdmin == 8){
+                        if(opcaoAdmin == 7){
                             System.out.println("Colecao Principal");
                             System.out.println(admin.getMusicas());
                             continue;
                         };
-                        if(opcaoAdmin == 9){
+                        if(opcaoAdmin == 8){
                             System.out.println("Saindo do Programa...");
                             break;
                         }
